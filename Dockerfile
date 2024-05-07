@@ -17,4 +17,4 @@ RUN composer install --no-dev
 EXPOSE 8000
 
 # Commande de démarrage de l'application PHP
-CMD ["php", "-S", "http://localhost:8000/"]
+CMD ["php", "-S", "0.0.0.0:8000"]
