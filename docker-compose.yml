@@ -1,0 +1,29 @@
+version: "3"
+
+services:
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: simpl-immo-app
+    restart: always
+    ports:
+      - "80:80"
+    volumes:
+      - .:/Simpl-Immo
+    depends_on:
+      - db
+
+  db:
+    image: mysql:8.0
+    container_name: simpl-immo-db
+    restart: always
+    environment:
+      MYSQL_DATABASE: your_database
+      MYSQL_USER: your_user
+      MYSQL_PASSWORD: your_password
+      MYSQL_ROOT_PASSWORD: root_password
+    ports:
+      - "3306:3306"
+    volumes:
+      - ./mysql:/docker-entrypoint-initdb.d
