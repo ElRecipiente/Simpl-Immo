@@ -23,10 +23,10 @@ COPY . ./
 RUN composer install --no-dev
 
 # Exposer le port par défaut d'Apache (optionnel)
-EXPOSE 80
-
-# Commande de démarrage du service Apache
-CMD ["httpd", "-D", "FOREGROUND"]
+EXPOSE 8000
 
 # Switch to the non-root user
 USER simplimmo
+
+# Commande de démarrage du service Apache
+CMD ["php", "-S", "0.0.0.0:8000"]

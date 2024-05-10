@@ -8,7 +8,7 @@ services:
     container_name: simpl-immo-app
     restart: always
     ports:
-      - "80:80"
+      - "8000:8000"
     volumes:
       - .:/Simpl-Immo
     depends_on:
