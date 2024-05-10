@@ -1,63 +1,77 @@
 CREATE DATABASE simplimmo;
 USE simplimmo;
-CREATE TABLE type_property (
-    id INT PRIMARY KEY AUTO_INCREMENT,
-    name VARCHAR(50) NOT NULL
+CREATE TABLE Regions (
+    id INT PRIMARY KEY,
+    name VARCHAR(255) NOT NULL
 );
-CREATE TABLE types_transactions (
-    id INT PRIMARY KEY AUTO_INCREMENT,
-    name VARCHAR(50) NOT NULL
+CREATE TABLE Cities (
+    id INT PRIMARY KEY,
+    name VARCHAR(255) NOT NULL,
+    postal_code VARCHAR(20) NOT NULL,
+    region_id INT,
+    FOREIGN KEY (region_id) REFERENCES Regions(id)
 );
-CREATE TABLE regions (
-    id INT PRIMARY KEY AUTO_INCREMENT,
-    name VARCHAR(100) NOT NULL
+CREATE TABLE Owners (
+    id INT PRIMARY KEY,
+    firstname VARCHAR(50) NOT NULL,
+    lastname VARCHAR(50) NOT NULL,
+    phone_number INT NOT NULL,
+    adress VARCHAR(255) NOT NULL,
+    mail VARCHAR(100) NOT NULL
 );
-CREATE TABLE city (
-    id INT PRIMARY KEY AUTO_INCREMENT,
-    name VARCHAR(100) NOT NULL,
-    id_regions INT,
-    FOREIGN KEY (id_regions) REFERENCES regions(id)
-);
-CREATE TABLE users (
-    id INT PRIMARY KEY AUTO_INCREMENT,
-    firstname VARCHAR(100) NOT NULL,
-    lastname VARCHAR(100) NOT NULL,
-    email VARCHAR(100) NOT NULL UNIQUE,
+CREATE TABLE Users (
+    id INT PRIMARY KEY,
+    username VARCHAR(50) NOT NULL,
     password VARCHAR(255) NOT NULL,
-    is_admin TINYINT(1) NOT NULL DEFAULT 0
+    firstname VARCHAR(50) NOT NULL,
+    lastname VARCHAR(50) NOT NULL,
+    guest_mail VARCHAR(100) NOT NULL,
+    phone_number INT NOT NULL
 );
-CREATE TABLE images (
-    id INT AUTO_INCREMENT PRIMARY KEY,
-    path VARCHAR(255) NOT NULL
+CREATE TABLE CallRequests (
+    id INT PRIMARY KEY,
+    user_id INT,
+    FOREIGN KEY (user_id) REFERENCES Users(id)
 );
-CREATE TABLE property (
-    id INT PRIMARY KEY AUTO_INCREMENT,
-    id_users INT DEFAULT NULL,
-    id_type_property INT,
-    id_type_transaction INT,
-    id_city INT,
+CREATE TABLE Properties (
+    id INT PRIMARY KEY,
     surface DECIMAL(10, 2) NOT NULL,
     price DECIMAL(10, 2) NOT NULL,
-    description TEXT,
-    date_creation DATETIME DEFAULT CURRENT_TIMESTAMP,
-    FOREIGN KEY (id_users) REFERENCES users(id),
-    FOREIGN KEY (id_type_property) REFERENCES type_property(id),
-    FOREIGN KEY (id_type_transaction) REFERENCES types_transactions(id),
-    FOREIGN KEY (id_city) REFERENCES city(id)
+    description TEXT NOT NULL,
+    type_transaction VARCHAR(50) NOT NULL,
+    type_property VARCHAR(50) NOT NULL,
+    city_id INT,
+    owner_id INT,
+    FOREIGN KEY (city_id) REFERENCES Cities(id),
+    FOREIGN KEY (owner_id) REFERENCES Owners(id)
 );
-CREATE TABLE property_imagess (
-    id_property INT,
-    id_images INT,
-    PRIMARY KEY (id_property, id_images),
-    FOREIGN KEY (id_property) REFERENCES property(id),
-    FOREIGN KEY (id_images) REFERENCES images(id)
+CREATE TABLE Photos (
+    id INT PRIMARY KEY,
+    url VARCHAR(255) NOT NULL,
+    alt VARCHAR(100) NOT NULL,
+    property_id INT,
+    FOREIGN KEY (property_id) REFERENCES Properties(id)
 );
-CREATE TABLE call_requests (
-    id INT PRIMARY KEY AUTO_INCREMENT,
-    id_property INT,
-    id_users INT,
-    email_guest VARCHAR(255) NOT NULL,
-    date_time_recall DATETIME NOT NULL,
-    FOREIGN KEY (id_property) REFERENCES property(id),
-    FOREIGN KEY (id_users) REFERENCES users(id)
+CREATE TABLE Garages (
+    id INT PRIMARY KEY,
+    type VARCHAR(50) NOT NULL,
+    underground BOOLEAN NOT NULL,
+    property_id INT,
+    FOREIGN KEY (property_id) REFERENCES Properties(id)
+);
+CREATE TABLE Houses (
+    id INT PRIMARY KEY,
+    room_number INT NOT NULL,
+    bedroom_number INT NOT NULL,
+    garden_size DECIMAL(10, 2) NOT NULL,
+    property_id INT,
+    FOREIGN KEY (property_id) REFERENCES Properties(id)
+);
+CREATE TABLE Appartments (
+    id INT PRIMARY KEY,
+    room_number INT NOT NULL,
+    bedroom_number INT NOT NULL,
+    garden BOOLEAN NOT NULL,
+    property_id INT,
+    FOREIGN KEY (property_id) REFERENCES Properties(id)
 );
