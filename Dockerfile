@@ -1,20 +1,32 @@
 # Utilisation de l'image Alpine Linux avec PHP
 FROM php:8.3.7RC1-zts-alpine3.18
 
-# Installation de Composer
-RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
+# Création d'un utilisateur non-root
+RUN adduser -D simplimmo
 
-# Définir le répertoire de travail
+# Définition du répertoire de travail
 WORKDIR /Simpl-Immo
 
-# Copier les fichiers de l'application
-COPY . .
+# Définition des permissions pour le répertoire de l'application
+RUN chown -R simplimmo:simplimmo /Simpl-Immo
 
-# Exécuter Composer pour installer les dépendances
+# Installation de Composer
+RUN curl -sS https://composer.github.io/installer.sig -o composer-setup.sig
+RUN curl -sS https://getcomposer.org/installer -o composer-setup.php
+RUN php composer-setup.php --install-dir=/usr/local/bin --filename=composer
+RUN rm composer-setup.sig composer-setup.php
+
+# Copie des fichiers de l'application, excluant les fichiers inutiles
+COPY . ./
+
+# Exécution de Composer pour installer les dépendances
 RUN composer install --no-dev
 
-# Exposer le port par défaut de PHP (optionnel)
-EXPOSE 8000
+# Exposer le port par défaut d'Apache (optionnel)
+EXPOSE 80
 
-# Commande de démarrage de l'application PHP
-CMD ["php", "-S", "0.0.0.0:8000"]
+# Commande de démarrage du service Apache
+CMD ["httpd", "-D", "FOREGROUND"]
+
+# Switch to the non-root user
+USER simplimmo
