@@ -4,7 +4,7 @@ TODO: description de l'app
 
 ## Development
 
-### Prérequis
+### Requirements
 
 - Docker
 - Docker Compose
