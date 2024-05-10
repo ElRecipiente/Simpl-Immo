@@ -1,7 +1,30 @@
 # Simpl-Immo
 
-### How it works :
+TODO: description de l'app
 
-docker build -t simpl-immo .
+## Development
 
-docker run -p 8000:8000 simpl-immo
+### Prérequis
+
+- Docker
+- Docker Compose
+
+### Setup
+
+```bash
+cp env.example .env
+docker-compose build
+docker-compose up -d
+```
+
+To stop docker:
+
+```bash
+docker-compose down
+```
+
+### Links
+
+- App: `http://localhost`
+
+TODO: MySql links
