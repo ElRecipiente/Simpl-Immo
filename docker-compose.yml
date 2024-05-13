@@ -1,35 +1,30 @@
-version: "3"
-
 services:
-  app:
-    build:
-      context: .
-      dockerfile: Dockerfile
-    container_name: simpl-immo-app
-    restart: always
-    ports:
-      - "8000:8000"
+  php:
+    image: php:8.3-apache
+    build: .
     volumes:
-      - .:/Simpl-Immo
+      - ./public_html:/var/www/html # Montez le répertoire contenant vos scripts PHP
+    ports:
+      - "8000:80" # Exposez le port 8000 de la machine hôte
+  db:
+    image: mysql:8.0.19
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: simplimmo
+      MYSQL_USER: user
+      MYSQL_PASSWORD: mdp
+    ports:
+      - "3310:3306"
+
+  phpmyadmin:
+    image: phpmyadmin/phpmyadmin:5.0.2
+    restart: always
     depends_on:
       - db
-    environment:
-      - DB_HOST=db
-      - DB_PORT=3306
-      - DB_DATABASE=${DB_DATABASE}
-      - DB_USERNAME=${DB_USERNAME}
-      - DB_PASSWORD=${DB_PASSWORD}
-
-  db:
-    image: mysql:8.0
-    container_name: simpl-immo-db
-    restart: always
-    environment:
-      MYSQL_DATABASE: ${DB_DATABASE}
-      MYSQL_USER: ${DB_USERNAME}
-      MYSQL_PASSWORD: ${DB_PASSWORD}
-      MYSQL_ROOT_PASSWORD: root_password
     ports:
-      - "3306:3306"
+      - "8888:80"
+    environment:
+      - PMA_HOST=db
     volumes:
       - ./mysql:/docker-entrypoint-initdb.d

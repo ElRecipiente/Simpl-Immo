@@ -1,0 +1,17 @@
+{
+    "name": "nicolas/test",
+    "autoload": {
+        "psr-4": {
+            "App\\": "src/"
+        }
+    },
+    "authors": [
+        {
+            "name": "Nicolas Droux",
+            "email": "nicolas.droux.2b@gmail.com"
+        }
+    ],
+    "require": {
+        "twig/twig": "^3.0"
+    }
+}

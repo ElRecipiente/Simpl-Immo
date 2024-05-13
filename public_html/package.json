@@ -1,0 +1,14 @@
+{
+  "name": "test",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "▶️ docker start": "docker-compose up -d --build",
+    "🛑 docker stop": "docker-compose down",
+    "docker terminal": "docker exec -it database /bin/bash"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC"
+}

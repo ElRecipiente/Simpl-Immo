@@ -13,8 +13,7 @@ TODO: description de l'app
 
 ```bash
 cp env.example .env
-docker-compose build
-docker-compose up -d
+docker-compose up -d --build
 ```
 
 To stop docker:
@@ -25,6 +24,7 @@ docker-compose down
 
 ### Links
 
-- App: `http://localhost`
+- App: `http://localhost:8000/public/`
+- PhpMyAdmin : `http://localhost:8888/`
 
 TODO: MySql links
