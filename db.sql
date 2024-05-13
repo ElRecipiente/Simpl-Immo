@@ -17,7 +17,7 @@ CREATE TABLE Owners (
     lastname VARCHAR(50) NOT NULL,
     phone_number INT NOT NULL,
     adress VARCHAR(255) NOT NULL,
-    mail VARCHAR(100) NOT NULL
+    mail VARCHAR(255) NOT NULL
 );
 CREATE TABLE Users (
     id INT PRIMARY KEY,
@@ -25,8 +25,9 @@ CREATE TABLE Users (
     password VARCHAR(255) NOT NULL,
     firstname VARCHAR(50) NOT NULL,
     lastname VARCHAR(50) NOT NULL,
-    guest_mail VARCHAR(100) NOT NULL,
-    phone_number INT NOT NULL
+    mail VARCHAR(255) NOT NULL,
+    phone_number INT NOT NULL,
+    is_admin BOOLEAN NOT NULL DEFAULT 0
 );
 CREATE TABLE CallRequests (
     id INT PRIMARY KEY,
@@ -35,7 +36,7 @@ CREATE TABLE CallRequests (
 );
 CREATE TABLE Properties (
     id INT PRIMARY KEY,
-    surface DECIMAL(10, 2) NOT NULL,
+    surface_area DECIMAL(10, 2) NOT NULL,
     price DECIMAL(10, 2) NOT NULL,
     description TEXT NOT NULL,
     type_transaction VARCHAR(50) NOT NULL,
