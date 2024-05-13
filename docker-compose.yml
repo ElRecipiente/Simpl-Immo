@@ -6,16 +6,28 @@ services:
       - ./public_html:/var/www/html # Montez le répertoire contenant vos scripts PHP
     ports:
       - "8000:80" # Exposez le port 8000 de la machine hôte
+    depends_on:
+      - db
+    environment:
+      - DB_HOST=db
+      - DB_PORT=${DB_PORT}
+      - DB_DATABASE=${DB_DATABASE}
+      - DB_USERNAME=${DB_USERNAME}
+      - DB_PASSWORD=${DB_PASSWORD}
+      - DB_ROOT_PASSWORD=${DB_ROOT_PASSWORD}
   db:
     image: mysql:8.0.19
     restart: always
     environment:
-      MYSQL_ROOT_PASSWORD: root
-      MYSQL_DATABASE: simplimmo
-      MYSQL_USER: user
-      MYSQL_PASSWORD: mdp
+      MYSQL_ROOT_PASSWORD: ${DB_ROOT_PASSWORD}
+      MYSQL_DATABASE: ${DB_DATABASE}
+      MYSQL_USER: ${DB_USERNAME}
+      MYSQL_PASSWORD: ${DB_PASSWORD}
+    volumes:
+      - ./mysql:/docker-entrypoint-initdb.d
+      - ./init.sql:/docker-entrypoint-initdb.d/init.sql
     ports:
-      - "3310:3306"
+      - "${DB_PORT}:3306"
 
   phpmyadmin:
     image: phpmyadmin/phpmyadmin:5.0.2
