@@ -1,11 +1,10 @@
 <?php
 require_once "../vendor/autoload.php";
 
-use App\controller\BienImmobilier;
-use App\controller\Maison;
-use App\model\DBConfig;
+use App\controller\PropertyController;
+use App\controller\HouseController;
 
-$bien_1 = new BienImmobilier("80", "120", "Ici", "2");
+$bien_1 = new PropertyController("80", "120", "Ici", "2");
 //$db = new DBConfig();
 //var_dump($db->getConnection());
 $bien_1->create();
@@ -14,7 +13,7 @@ $bien_1->create();
 
 // echo "La surface est de " . $bien_1->getSurface() . " mètres carrés.";
 
-$maison_1 = new Maison(
+$maison_1 = new HouseController(
         "200",
         "1200",
         "làbas",

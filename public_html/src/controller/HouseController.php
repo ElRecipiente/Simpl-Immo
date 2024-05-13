@@ -2,7 +2,7 @@
 
 namespace App\controller;
 
-class Maison extends BienImmobilier
+class HouseController extends PropertyController
 {
     /**
      * @param null $terrain

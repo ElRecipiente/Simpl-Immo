@@ -2,12 +2,12 @@
 
 namespace App\controller;
 
-use App\model\DBConfig;
+use core\DBConfig;
 
 /**
- * Definit la class BienImmobilier
+ * Definit la class PropertyController
  */
-class BienImmobilier
+class PropertyController
 {
     private $surface;
     protected $prix;
@@ -48,13 +48,6 @@ class BienImmobilier
     public function setFraisDeNotaire($frais_de_notaire)
     {
         $this->frais_de_notaire = $frais_de_notaire;
-    }
-
-    public function create()
-    {
-        $db = new DBConfig();
-
-        $db->getConnection();
     }
 
 }

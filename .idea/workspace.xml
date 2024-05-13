@@ -5,14 +5,12 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="dbaa955f-1522-48c4-8153-86254c11a928" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/public_html/.gitignore" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Dockerfile" beforeDir="false" afterPath="$PROJECT_DIR$/Dockerfile" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/composer.json" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/composer.lock" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/docker-compose.yml" beforeDir="false" afterPath="$PROJECT_DIR$/docker-compose.yml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/env.example" beforeDir="false" afterPath="$PROJECT_DIR$/public_html/env.example" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/index.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public_html/composer.json" beforeDir="false" afterPath="$PROJECT_DIR$/public_html/composer.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public_html/public/index.php" beforeDir="false" afterPath="$PROJECT_DIR$/public_html/public/index.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public_html/src/controller/BienImmobilier.php" beforeDir="false" afterPath="$PROJECT_DIR$/public_html/src/controller/PropertyController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public_html/src/controller/Maison.php" beforeDir="false" afterPath="$PROJECT_DIR$/public_html/src/controller/HouseController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public_html/src/model/DBConfig.php" beforeDir="false" afterPath="$PROJECT_DIR$/public_html/core/DBConfig.php" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -89,7 +87,7 @@
       <updated>1715062741149</updated>
       <workItem from="1715062743206" duration="5872000" />
       <workItem from="1715581972000" duration="1483000" />
-      <workItem from="1715583497925" duration="465000" />
+      <workItem from="1715583497925" duration="3654000" />
     </task>
     <servers />
   </component>
