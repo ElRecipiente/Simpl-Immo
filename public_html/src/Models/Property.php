@@ -1,6 +1,6 @@
 <?php
 
-namespace App\model;
+namespace Models;
 
 use core\DBConfig;
 class Property extends DBConfig {

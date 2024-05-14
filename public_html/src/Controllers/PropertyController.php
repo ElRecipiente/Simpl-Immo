@@ -1,6 +1,6 @@
 <?php
 
-namespace App\controller;
+namespace Controllers;
 
 use core\DBConfig;
 
