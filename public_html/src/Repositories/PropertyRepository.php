@@ -45,13 +45,15 @@ class PropertyRepository extends DBConfig {
     }
 
     /**
-     * @param $surfaceArea
+     * @param int $surfaceAreaMin
+     * @param int $surfaceAreaMax
      * Filter by surface area
      */
-    public function filterBySurfaceArea($surfaceArea){
-        $sql = "SELECT * FROM " . $this->table . " WHERE surfaceArea = :surfaceArea";
+    public function filterBySurfaceArea($surfaceAreaMin, $surfaceAreaMax){
+        $sql = "SELECT * FROM " . $this->table . " WHERE surface_area > :surfaceAreaMin AND surface_area < :surfaceAreaMax";
         $query = $this->_connexion->prepare($sql);
-        $query->bindParam(':surfaceArea', $surfaceArea);
+        $query->bindParam(':surfaceAreaMin', $surfaceAreaMin);
+        $query->bindParam(':surfaceAreaMax', $surfaceAreaMax);
         $query->execute();
         return $query->fetchAll(PDO::FETCH_OBJ);
     }

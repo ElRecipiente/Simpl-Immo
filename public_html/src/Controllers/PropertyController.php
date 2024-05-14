@@ -2,8 +2,6 @@
 
 namespace Controllers;
 
-use core\DBConfig;
-
 /**
  * Definit la class PropertyController
  */
