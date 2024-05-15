@@ -24,7 +24,7 @@ docker-compose down
 
 ### Links
 
-- App: `http://localhost:8000/public/`
+- App: `http://localhost:8000/`
 - PhpMyAdmin : `http://localhost:8888/`
 
 TODO: MySql links
