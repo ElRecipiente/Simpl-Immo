@@ -2,6 +2,8 @@ services:
   php:
     image: php:8.3-apache
     build: .
+    volumes:
+      - ./:/var/www/html
     ports:
       - "8000:80" # Exposez le port 8000 de la machine hôte
     depends_on:
