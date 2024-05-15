@@ -1,0 +1,17 @@
+{% extends "base.html.twig" %}
+
+{% block title %}Properties
+{% endblock %}
+
+{% block content %}
+
+    <h1>Properties</h1>
+
+    <ul>
+        {% for owner in owners %}
+            <li>{{ owner.firsname}}</li>
+            <li>{{ owner.lastname }}</li>
+        {% endfor %}
+    </ul>
+
+{% endblock %}
