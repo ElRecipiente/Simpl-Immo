@@ -1,4 +1,10 @@
 <?php
+
 require_once "../vendor/autoload.php";
 
-echo "hello world KEKW";
+use Controllers\PropertyController;
+
+echo "Hello World!";
+
+$property_1 = new PropertyController();
+$property_1->display();
