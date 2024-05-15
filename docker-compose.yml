@@ -2,8 +2,6 @@ services:
   php:
     image: php:8.3-apache
     build: .
-    volumes:
-      - ./public_html:/var/www/html # Montez le répertoire contenant vos scripts PHP
     ports:
       - "8000:80" # Exposez le port 8000 de la machine hôte
     depends_on:
