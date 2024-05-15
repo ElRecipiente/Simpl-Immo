@@ -9,7 +9,8 @@
 
     <ul>
         {% for property in properties %}
-        <li>{{ properties.price }}</li>
+            <li>{{ property.price }}</li>
+            <li>{{ property.description }}</li>
         {% endfor %}
     </ul>
 
