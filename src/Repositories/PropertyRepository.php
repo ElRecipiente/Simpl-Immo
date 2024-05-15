@@ -62,10 +62,11 @@ class PropertyRepository extends DBConfig {
      * @param $price
      * Filter by price
      */
-    public function filterByPrice($price){
-        $sql = "SELECT * FROM " . $this->table . " WHERE price = :price";
+    public function filterByPrice($priceMin, $priceMax){
+        $sql = "SELECT * FROM " . $this->table . " WHERE price > :priceMin AND price < :priceMax";
         $query = $this->_connexion->prepare($sql);
-        $query->bindParam(':price', $price);
+        $query->bindParam(':price', $priceMin);
+        $query->bindParam(':priceMax', $priceMax);
         $query->execute();
         return $query->fetchAll(PDO::FETCH_OBJ);
     }
