@@ -12,7 +12,7 @@ TODO: description de l'app
 ### Setup
 
 ```bash
-cp env.example .env
+cp .env.example .env
 docker-compose up -d --build
 ```
 
