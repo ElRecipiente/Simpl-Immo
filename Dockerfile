@@ -1,8 +1,5 @@
 FROM php:8.3-apache
 
-# Set working directory to /app
-WORKDIR /app
-
 # Copy composer.json and composer.lock files
 COPY composer.json composer.lock./
 
