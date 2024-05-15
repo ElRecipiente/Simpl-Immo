@@ -3,10 +3,12 @@
     namespace Repositories;
 
     use core\DBConfig;
+use PDO;
+
 
     class OwnerRepository extends DBConfig{
 
-        private string $table = "owner";
+        private string $table = "owners";
 
         public function __construct()
         {
@@ -17,6 +19,8 @@
             $sql = "SELECT * FROM $this->table";
             $query = $this->_connexion->prepare($sql);
             $query->execute();
+        return $query->fetchAll(PDO::FETCH_OBJ);
+
         }
 
         public function getOwnerById(int $id)
