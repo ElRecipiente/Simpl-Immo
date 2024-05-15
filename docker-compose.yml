@@ -24,8 +24,8 @@ services:
       MYSQL_PASSWORD: ${DB_PASSWORD}
       MYSQL_ROOT_PASSWORD: ${DB_ROOT_PASSWORD}
     volumes:
-      - ./mysql:/docker-entrypoint-initdb.d
-      - ./init.sql:/docker-entrypoint-initdb.d/init.sql
+      - ./.data/mysql:/docker-entrypoint-initdb.d
+      - ./.data/init.sql:/docker-entrypoint-initdb.d/init.sql
     ports:
       - "${DB_PORT}:3306"
 
@@ -39,4 +39,4 @@ services:
     environment:
       - PMA_HOST=db
     volumes:
-      - ./mysql:/docker-entrypoint-initdb.d
+      - ./.data/phpMyAdmin/mysql:/docker-entrypoint-initdb.d
