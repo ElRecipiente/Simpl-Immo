@@ -1,4 +1,3 @@
-CREATE DATABASE simplimmo;
 USE simplimmo;
 CREATE TABLE regions (
     id INT PRIMARY KEY,

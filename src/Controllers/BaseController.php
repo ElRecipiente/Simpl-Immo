@@ -7,7 +7,7 @@ abstract class BaseController {
 
     public function __construct()
     {
-        $loader = new \Twig\Loader\FilesystemLoader('../src/Views');
+        $loader = new \Twig\Loader\FilesystemLoader('../src/templates');
         $this->twig = new \Twig\Environment($loader);
     }
 

@@ -36,7 +36,7 @@ class PropertyController extends BaseController
      */
     public function display() {
         $properties = $this->repository->getAll();
-        $this->render('properties', ['properties' => $properties]);
+        $this->render('properties/properties.html.twig', ['properties' => $properties]);
     }
 
 }
