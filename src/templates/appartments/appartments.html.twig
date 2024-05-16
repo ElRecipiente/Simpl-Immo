@@ -1,0 +1,17 @@
+{% extends "base.html.twig" %}
+
+{% block title %}Appartements
+{% endblock %}
+
+{% block content %}
+
+    <h1>Appartements</h1>
+
+    <ul>
+        {% for appartment in appartments %}
+            <li>{{ appartment.room_number}}</li>
+            <li>{{ appartment.garden }}</li>
+        {% endfor %}
+    </ul>
+
+{% endblock %}
