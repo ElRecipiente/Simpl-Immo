@@ -2,7 +2,6 @@
 
 namespace Controllers;
 
-use Models\Property;
 use Repositories\PropertyRepository;
 
 /**
@@ -17,16 +16,10 @@ class PropertyController extends BaseController
     private PropertyRepository $repository;
 
     /**
-     * @var Property
-     */
-    private Property $model;
-
-    /**
      *
      */
     public function __construct() {
         parent::__construct();
-        $this->model = new Property();
         $this->repository = new PropertyRepository();
     }
 
@@ -37,6 +30,12 @@ class PropertyController extends BaseController
     public function display() {
         $properties = $this->repository->getAll();
         $this->render('properties/properties.html.twig', ['properties' => $properties]);
+    }
+
+    public function addProperty() {
+
+        $this->repository->create();
+        $this->render('properties/properties.html.twig');
     }
 
 }

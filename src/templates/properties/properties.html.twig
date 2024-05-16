@@ -9,8 +9,11 @@
 
     <ul>
         {% for property in properties %}
-            <li>{{ property.price }}</li>
-            <li>{{ property.description }}</li>
+            <li><img src="{{ photos.url }}" alt="{{ photos.alt }}"></li>
+            <li>Prix : {{ property.price }} euros</li>
+            <li>Description : {{ property.description }}</li>
+            <li>Bien en {{ property.type_transaction }}</li>
+            <li>Type de bien : {{ property.type_property }}</li>
         {% endfor %}
     </ul>
 

@@ -36,12 +36,18 @@ class Property extends DBConfig {
 public function getSurfaceArea() {
     return $this->surface_area;
 }
+public function setSurfaceArea(float $surface_area) {
+    $this->surface_area = $surface_area;
+}
 
     /**
      * @return float
      */
 public function getPrice() {
     return $this->price;
+}
+public function setPrice(float $price) {
+    $this->price = $price;
 }
 
     /**
@@ -50,12 +56,7 @@ public function getPrice() {
 public function getDescription() {
     return $this->description;
 }
-
-    /**
-     * @param $description
-     * @return void
-     */
-public function setDescription($description) {
+public function setDescription(string $description) {
     $this->description = $description;
 }
 
@@ -65,6 +66,9 @@ public function setDescription($description) {
 public function getTypeTransaction() {
     return $this->type_transaction;
 }
+public function setTypeTransaction(string $type_transaction) {
+    $this->type_transaction = $type_transaction;
+}
 
     /**
      * @return string
@@ -72,12 +76,8 @@ public function getTypeTransaction() {
 public function getTypeProperty() {
     return $this->type_property;
 }
-
-    /**
-     * @return void
-     */
-public function create() {
-    // todo in child class
+public function setTypeProperty(string $type_property) {
+    $this->type_property = $type_property;
 }
 
 }

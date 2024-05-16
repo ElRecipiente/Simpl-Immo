@@ -21,7 +21,6 @@ abstract class DBConfig {
         // tentative de connexion
         try {
             $this->_connexion = new PDO("mysql:host=$this->host;dbname=$this->dbname",$this->user, $this->pass);
-            echo "Connexion à la DB réussi !";
 
         } catch (PDOException $e) {
             throw new PDOException($e->getMessage());

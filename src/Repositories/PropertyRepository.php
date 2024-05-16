@@ -3,6 +3,7 @@
 namespace Repositories;
 
 use core\DBConfig;
+use Models\Property;
 use PDO;
 
 class PropertyRepository extends DBConfig {
@@ -12,12 +13,15 @@ class PropertyRepository extends DBConfig {
      */
     private string $table = "properties";
 
+    protected Property $model;
+
     /**
      * Init connexion to db
      */
     public function __construct()
     {
         $this->getConnection();
+        $this->model = new Property();
     }
 
     /**
@@ -42,6 +46,23 @@ class PropertyRepository extends DBConfig {
         $query->bindParam(':id', $id);
         $query->execute();
         return $query->fetch(PDO::FETCH_OBJ);
+    }
+
+    public function create() {
+        $this->model->setSurfaceArea($_POST["surface_area"]);
+        $this->model->setPrice($_POST["price"]);
+        $this->model->setDescription($_POST["description"]);
+        $this->model->setTypeProperty($_POST["type_property"]);
+        $this->model->setTypeTransaction($_POST["type_transaction"]);
+
+        $sql = "INSERT INTO " . $this->table . "(surface_area, price, description, type_property, type_transaction) VALUES (:surface_area, :price, :description, :type_property, :type_transaction)";
+        $query = $this->_connexion->prepare($sql);
+        $query->bindParam(':surface_area', $this->model->getSurfaceArea());
+        $query->bindParam(':price', $this->model->getPrice());
+        $query->bindParam(':description', $this->model->getDescription());
+        $query->bindParam(':type_property', $this->model->getTypeProperty());
+        $query->bindParam(':type_transaction', $this->model->getTypeTransaction());
+        $query->execute();
     }
 
     /**

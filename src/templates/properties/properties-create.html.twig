@@ -1,0 +1,34 @@
+{% extends "base.html.twig" %}
+
+{% block title %}Créer un nouveau bien
+{% endblock %}
+
+{% block content %}
+
+    <h2>Créer un nouveau bien</h2>
+
+    {% if error %}
+        <span class='error'>{{error}}</span>
+    {% endif %}
+
+    <form class="" action="./create-property" method="POST">
+
+        <label for="surface_area">Nom du produit</label>
+        <input type="text" name="surface_area" id="surface_area">
+
+        <label for="price">Quantité</label>
+        <input type="text" name="price" id="price">
+
+        <label for="description">Prix</label>
+        <input type="text" name="description" id="description">
+
+        <label for="type_transaction">Prix</label>
+        <input type="text" name="type_transaction" id="type_transaction">
+
+        <label for="type_property">Prix</label>
+        <input type="text" name="type_property" id="type_property">
+
+        <button>Créer une propriété</button>
+    </form>
+
+{% endblock %}
