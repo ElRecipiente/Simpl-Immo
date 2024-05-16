@@ -1,0 +1,21 @@
+<IfModule mod_rewrite.c>
+
+  # mod_rewrite must be activated before using the following instructions
+
+  # Activates the rewrite engine, to enable URL rewriting
+  RewriteEngine On
+
+  # Checks if the request doesn't match an existing file on the server
+  RewriteCond %{REQUEST_FILENAME} !-f
+
+  # Checks if the request doesn't match an existing folder on the server
+  RewriteCond %{REQUEST_FILENAME} !-d
+
+
+	# Redirects all the requests that don't match a file or folder to index.php
+
+  # [QSA] means "QueryString Append", it is used to append query strings to the original request
+  # [L] means "Last", it is the last rule to execute if the condition is met
+  RewriteRule ^ index.php [QSA,L]
+
+</IfModule>

@@ -19,6 +19,15 @@ WORKDIR /var/www/html
 # Copy composer.json file
 COPY composer.json /var/www/html/
 
+# Définir le dossier public comme DocumentRoot
+RUN sed -i 's|/var/www/html|/var/www/html/public|g' /etc/apache2/sites-available/000-default.conf
+
+# Activer mod_rewrite pour Apache
+RUN a2enmod rewrite
+
+# Copier le fichier .htaccess
+COPY public/.htaccess /var/www/html/public/.htaccess
+
 # Install phpdotenv
 RUN composer require vlucas/phpdotenv
 
