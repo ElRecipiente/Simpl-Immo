@@ -2,8 +2,10 @@
 
     use Controllers\PropertyController;
     use Controllers\HouseController;
+    use Controllers\AppartmentController;
     $propertyController = new PropertyController();
     $houseController = new HouseController();
+    $appartmentController = new AppartmentController();
 
     $uri = $_SERVER['REQUEST_URI'];
     zlog("uri : $uri");

@@ -10,15 +10,15 @@ use core\DBConfig;
 class Appartment extends DBConfig {
 
     /**
-     * @var string
+     * @var int
      */
-    protected string $room_number;
-    /**
-     * @var string
-     */
-    protected string $bedroom_number;
+    protected int $room_number;
     /**
      * @var int
+     */
+    protected int $bedroom_number;
+    /**
+     * @var tinyint
      */
     protected int $gardien;
 
