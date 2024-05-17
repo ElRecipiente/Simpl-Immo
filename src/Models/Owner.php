@@ -2,12 +2,13 @@
 
 namespace Models;
 
-use core\DBConfig;
+use db\core\DBConfig;
 
 /**
  * Define Property class
  */
-class Owner extends DBConfig {
+class Owner extends DBConfig
+{
 
     /**
      * @var string
@@ -30,23 +31,28 @@ class Owner extends DBConfig {
      */
     protected string $mail;
 
-    public function getFirstname(){
+    public function getFirstname()
+    {
         return $this->firstname;
     }
-    public function getLastname(){
+    public function getLastname()
+    {
         return $this->lastname;
-    }    
-    public function getPhoneNumber(){
+    }
+    public function getPhoneNumber()
+    {
         return $this->phone_number;
     }
-    public function getAdress(){
+    public function getAdress()
+    {
         return $this->adress;
     }
-    public function getMail(){
+    public function getMail()
+    {
         return $this->mail;
     }
     // public function setFirstname($firstname){
     //     $this->firstname = $firstname;
     // }
-    
+
 }

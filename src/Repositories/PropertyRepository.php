@@ -2,11 +2,12 @@
 
 namespace Repositories;
 
-use core\DBConfig;
+use db\core\DBConfig;
 use Models\Property;
 use PDO;
 
-class PropertyRepository extends DBConfig {
+class PropertyRepository extends DBConfig
+{
 
     /**
      * @var string
@@ -48,7 +49,8 @@ class PropertyRepository extends DBConfig {
         return $query->fetch(PDO::FETCH_OBJ);
     }
 
-    public function create() {
+    public function create()
+    {
         $surfaceArea = $_POST["surface_area"];
         $price = $_POST["price"];
         $description = $_POST["description"];
@@ -70,7 +72,8 @@ class PropertyRepository extends DBConfig {
      * @param int $surfaceAreaMax
      * Filter by surface area
      */
-    public function filterBySurfaceArea($surfaceAreaMin, $surfaceAreaMax){
+    public function filterBySurfaceArea($surfaceAreaMin, $surfaceAreaMax)
+    {
         $sql = "SELECT * FROM " . $this->table . " WHERE surface_area > :surfaceAreaMin AND surface_area < :surfaceAreaMax";
         $query = $this->_connexion->prepare($sql);
         $query->bindParam(':surfaceAreaMin', $surfaceAreaMin);
@@ -83,7 +86,8 @@ class PropertyRepository extends DBConfig {
      * @param $price
      * Filter by price
      */
-    public function filterByPrice($priceMin, $priceMax){
+    public function filterByPrice($priceMin, $priceMax)
+    {
         $sql = "SELECT * FROM " . $this->table . " WHERE price > :priceMin AND price < :priceMax";
         $query = $this->_connexion->prepare($sql);
         $query->bindParam(':price', $priceMin);
@@ -91,5 +95,4 @@ class PropertyRepository extends DBConfig {
         $query->execute();
         return $query->fetchAll(PDO::FETCH_OBJ);
     }
-
 }

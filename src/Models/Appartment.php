@@ -2,12 +2,13 @@
 
 namespace Models;
 
-use core\DBConfig;
+use db\core\DBConfig;
 
 /**
  * Define Property class
  */
-class Appartment extends DBConfig {
+class Appartment extends DBConfig
+{
 
     /**
      * @var int
@@ -22,13 +23,16 @@ class Appartment extends DBConfig {
      */
     protected int $gardien;
 
-    public function getRoom_number(){
+    public function getRoom_number()
+    {
         return $this->room_number;
     }
-    public function getBedroom_number(){
+    public function getBedroom_number()
+    {
         return $this->bedroom_number;
-    }    
-    public function getGardien(){
+    }
+    public function getGardien()
+    {
         return $this->gardien;
     }
 }

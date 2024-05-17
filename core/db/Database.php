@@ -1,6 +1,6 @@
 <?php
 
-namespace core;
+namespace db\core;
 
 class DataBase
 {
@@ -8,39 +8,12 @@ class DataBase
 
     public function __construct()
     {
-
-        // todo added config file for credential
-        $this->pdo = new \PDO();
-        $this->pdo->setAttribute(\PDO::ATTR_ERRMODE, \PDO::ERRMODE_EXCEPTION);
+        // todo
     }
 
     public function applyMigrations()
     {
-        $this->createMigrationsTable();
-        $appliedMigrations = $this->getAppliedMigrations();
-
-        $newMigrations = [];
-        $files = scandir('/migrations');
-        $toApplyMigrations = array_diff($files, $appliedMigrations);
-        foreach ($toApplyMigrations as $migration) {
-            if ($migration === '.' || $migration === '..') {
-                continue;
-            }
-
-            require_once '/migrations/' . $migration;
-            $className = pathinfo($migration, PATHINFO_FILENAME);
-            $instance = new $className();
-            $this->log("Applying migration $migration" . PHP_EOL);
-            $instance->up();
-            $this->log("Applying migration $migration" . PHP_EOL);
-            $newMigrations[] = $migration;
-        }
-
-        if (!empty($newMigrations)) {
-            $this->saveMigrations($newMigrations);
-        } else {
-            $this->log('All migrations is applied');
-        }
+        // todo
     }
 
     public function createMigrationsTable()
