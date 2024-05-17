@@ -2,7 +2,7 @@
 
 namespace Models;
 
-use db\core\DBConfig;
+use core\db\DBConfig;
 
 /**
  * Define Property class

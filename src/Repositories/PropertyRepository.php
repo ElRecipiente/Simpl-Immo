@@ -2,7 +2,7 @@
 
 namespace Repositories;
 
-use db\core\DBConfig;
+use core\db\DBConfig;
 use Models\Property;
 use PDO;
 
