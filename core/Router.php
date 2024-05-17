@@ -45,6 +45,10 @@ class Router {
                 "controller" => $propertyController,
                 "method" => "updateProperty",
             ],
+            "/delete-property" => [
+                "controller" => $propertyController,
+                "method" => "deleteProperty",
+            ],
             "/owner" => [
                 "controller" => $ownerController,
                 "method" => "display",

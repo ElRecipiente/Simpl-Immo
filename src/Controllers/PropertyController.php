@@ -54,4 +54,10 @@ class PropertyController extends BaseController
         header('Location: /');
         exit;
     }
+
+    public function deleteProperty($id) {
+        $this->repository->delete($id);
+        header('Location: /');
+        exit;
+    }
 }

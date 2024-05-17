@@ -86,6 +86,13 @@ class PropertyRepository extends DBConfig
         $query->bindParam(':id', $id);
         $query->execute();
     }
+
+    public function delete($id) : void {
+        $sql = "DELETE FROM " . $this->table . " WHERE id = :id";
+        $query = $this->_connexion->prepare($sql);
+        $query->bindParam(':id', $id);
+        $query->execute();
+    }
     /**
      * @param int $surfaceAreaMin
      * @param int $surfaceAreaMax
