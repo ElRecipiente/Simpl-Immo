@@ -14,9 +14,12 @@
             <li>Description : {{ property.description }}</li>
             <li>Bien en {{ property.type_transaction }}</li>
             <li>Type de bien : {{ property.type_property }}</li>
+            <a class="modify" href="./modify-property">Modifier</a>
+            <a class="delete">Supprimer</a>
+
         {% endfor %}
     </ul>
 
-    <a href="./create-property">Créer une nouvelle propriété</a>
+    <a style="background-color: blue; color: white" href="./create-property">Créer une nouvelle propriété</a>
 
 {% endblock %}
