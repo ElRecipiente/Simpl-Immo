@@ -1,25 +1,25 @@
 <!DOCTYPE html>
 <html lang="en">
-    <head>
-        <meta charset="UTF-8">
-        <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <link rel="stylesheet" href="">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="">
 
-        <title>
-            {% block title %}Default
-            {% endblock %}
-        </title>
-    </head>
-    <body>
-        <header class="header">
+    <title>
+        {% block title %}Default
+        {% endblock %}
+    </title>
+</head>
+<body>
+<header class="header">
 
-        </header>
-        <main class="main">
-            {% block content %}
-            {% endblock %}
-            </main>
-        </body>
+</header>
+<main class="main">
+    {% block content %}
+    {% endblock %}
+</main>
+</body>
 
 <style>
     * {
@@ -29,13 +29,26 @@
         font-family: sans-serif;
     }
 
+    form {
+        display: flex;
+        flex-flow: column;
+        width: fit-content;
+    }
+
+    input {
+        margin-bottom: 1em;
+    }
+
     a {
         text-decoration: none;
-        padding: 1em;
+        display: block;
+        width: fit-content;
+        padding: 0.5em;
+        margin: 1em;
     }
 
     a.modify {
-        background-color: green;
+        background-color: blue;
         color: white;
     }
 
@@ -44,5 +57,10 @@
         color: white;
     }
 
+    a.add {
+        background-color: green;
+        color: white;
+    }
+
 </style>
-    </html>
+</html>

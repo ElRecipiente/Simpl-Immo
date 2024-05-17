@@ -1,0 +1,38 @@
+{% extends "base.html.twig" %}
+
+{% block title %}Modifier le bien
+{% endblock %}
+
+{% block content %}
+
+    <h2>Créer un nouveau bien</h2>
+
+    {% if error %}
+        <span class='error'>{{ error }}</span>
+    {% endif %}
+
+    <form class="" action="./update-property" method="POST">
+
+        <label for="type_property">Type de propriété</label>
+        <input type="text" name="type_property" id="type_property" value="{{ property.type_property }}" required>
+
+        <label for="surface_area">Surface</label>
+        <input type="text" name="surface_area" id="surface_area" value="{{ property.surface_area }}" required>
+
+        <label for="price">Prix</label>
+        <input type="text" name="price" id="price" value="{{ property.price }}" required>
+
+        <label for="description">Description</label>
+        <input type="text" name="description" id="description" value="{{ property.description }}" required>
+
+        <label for="type_transaction">Type de transaction</label>
+        <input type="text" name="type_transaction" id="type_transaction" value="{{ property.type_transaction }}"
+               required>
+
+        <input type="hidden" name="id" id="id" value="{{ property.id }}">
+
+        <button>Confirmer modification</button>
+
+    </form>
+
+{% endblock %}
