@@ -32,10 +32,15 @@ class PropertyController extends BaseController
         $this->render('properties/properties.html.twig', ['properties' => $properties]);
     }
 
-    public function addProperty() {
-
-        $this->repository->create();
-        $this->render('properties/properties.html.twig');
+    public function createProperty()
+    {
+        $this->render('properties/properties-create.html.twig');
     }
 
+    public function addProperty()
+    {
+        $this->repository->create();
+        header('Location: /');
+        exit;
+    }
 }

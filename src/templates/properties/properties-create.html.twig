@@ -11,24 +11,25 @@
         <span class='error'>{{error}}</span>
     {% endif %}
 
-    <form class="" action="./create-property" method="POST">
+    <form class="" action="./add-property" method="POST">
 
-        <label for="surface_area">Nom du produit</label>
+        <label for="surface_area">Surface</label>
         <input type="text" name="surface_area" id="surface_area">
 
-        <label for="price">Quantité</label>
+        <label for="price">Prix</label>
         <input type="text" name="price" id="price">
 
-        <label for="description">Prix</label>
+        <label for="description">Description</label>
         <input type="text" name="description" id="description">
 
-        <label for="type_transaction">Prix</label>
+        <label for="type_transaction">Type de transaction</label>
         <input type="text" name="type_transaction" id="type_transaction">
 
-        <label for="type_property">Prix</label>
+        <label for="type_property">Type de propriété</label>
         <input type="text" name="type_property" id="type_property">
 
         <button>Créer une propriété</button>
+
     </form>
 
 {% endblock %}

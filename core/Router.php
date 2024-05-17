@@ -29,6 +29,14 @@ class Router {
                 "controller" => $propertyController,
                 "method" => "display",
             ],
+            "/create-property" => [
+                "controller" => $propertyController,
+                "method" => "createProperty",
+            ],
+            "/add-property" => [
+                "controller" => $propertyController,
+                "method" => "addProperty",
+            ],
             "/owner" => [
                 "controller" => $ownerController,
                 "method" => "display",
