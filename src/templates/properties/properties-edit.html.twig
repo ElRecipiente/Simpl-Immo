@@ -5,19 +5,19 @@
 
 {% block content %}
 
-    <h2>Créer un nouveau bien</h2>
-
     {% if error %}
-        <span class='error'>{{ error }}</span>
+        <p class='error'>{{ error }}</p>
     {% endif %}
+
+    <h2>Modifier un bien</h2>
 
     <form class="" action="./update-property" method="POST">
 
         <label for="type_property">Type de propriété</label>
         <select name="type_property" id="type_property" required>
-            <option value="maison" {% if property.type_property == 'maison' %}selected{% endif %}>Maison</option>
-            <option value="appartement" {% if property.type_property == 'appartement' %}selected{% endif %}>Appartement</option>
-            <option value="garage" {% if property.type_property == 'garage' %}selected{% endif %}>Garage</option>
+            <option value="Maison" {% if property.type_property == 'Maison' %}selected{% endif %}>Maison</option>
+            <option value="Appartement" {% if property.type_property == 'Appartement' %}selected{% endif %}>Appartement</option>
+            <option value="Garage" {% if property.type_property == 'Garage' %}selected{% endif %}>Garage</option>
         </select>
 
         <label for="surface_area">Surface</label>
