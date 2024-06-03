@@ -51,8 +51,8 @@ class PropertyRepository extends DBConfig
 
     public function create() : void
     {
-        $surfaceArea = $_POST["surface_area"];
-        $price = $_POST["price"];
+        $surfaceArea = trim($_POST["surface_area"]);
+        $price = trim($_POST["price"]);
         $description = $_POST["description"];
         $typeProperty = $_POST["type_property"];
         $typeTransaction = $_POST["type_transaction"];
@@ -70,8 +70,8 @@ class PropertyRepository extends DBConfig
     public function update() : void
     {
         $id = $_POST["id"];
-        $surfaceArea = $_POST["surface_area"];
-        $price = $_POST["price"];
+        $surfaceArea = trim($_POST["surface_area"]);
+        $price = trim($_POST["price"]);
         $description = $_POST["description"];
         $typeProperty = $_POST["type_property"];
         $typeTransaction = $_POST["type_transaction"];
