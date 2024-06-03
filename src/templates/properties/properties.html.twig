@@ -6,17 +6,23 @@
 {% block content %}
 
     <h1>Properties</h1>
+    <div class="container">
 
-    <ul>
         {% for property in properties %}
-            <li><img src="{{ photos.url }}" alt="{{ photos.alt }}"></li>
-            <li>Prix : {{ property.price }} euros</li>
-            <li>Description : {{ property.description }}</li>
-            <li>Bien en {{ property.type_transaction }}</li>
-            <li>Type de bien : {{ property.type_property }}</li>
-        {% endfor %}
-    </ul>
+            <ul>
+                <li><img src="{{ photos.url }}" alt="{{ photos.alt }}"></li>
+                <li>{{ property.type_property }}</li>
+                <li>Prix : {{ property.price }} euros</li>
+                <li>Description : {{ property.description }}</li>
+                <li>Bien en {{ property.type_transaction }}</li>
 
-    <a href="./create-property">Créer une nouvelle propriété</a>
+            </ul>
+            <a class="modify" href="./edit-property?id={{ property.id }}">Modifier</a>
+            <a class="delete" href="./delete-property?id={{ property.id }}">Supprimer</a>
+        {% endfor %}
+
+    </div>
+
+    <a class="add" href="./create-property">Créer une nouvelle propriété</a>
 
 {% endblock %}

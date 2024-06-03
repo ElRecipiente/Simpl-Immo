@@ -2,12 +2,13 @@
 
 namespace Models;
 
-use core\DBConfig;
+use core\db\DBConfig;
 
 /**
  * Define Appartment class
  */
-class Appartment extends DBConfig {
+class Appartment extends DBConfig
+{
 
     /**
      * @var int

@@ -43,4 +43,21 @@ class PropertyController extends BaseController
         header('Location: /');
         exit;
     }
+
+    public function editProperty($id) {
+        $property = $this->repository->getOneById($id);
+        $this->render('properties/properties-edit.html.twig', ['property' => $property]);
+    }
+
+    public function updateProperty() {
+        $this->repository->update();
+        header('Location: /');
+        exit;
+    }
+
+    public function deleteProperty($id) {
+        $this->repository->delete($id);
+        header('Location: /');
+        exit;
+    }
 }

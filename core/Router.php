@@ -39,6 +39,18 @@ class Router {
                 "controller" => $propertyController,
                 "method" => "addProperty",
             ],
+            "/edit-property" => [
+                "controller" => $propertyController,
+                "method" => "editProperty",
+            ],
+            "/update-property" => [
+                "controller" => $propertyController,
+                "method" => "updateProperty",
+            ],
+            "/delete-property" => [
+                "controller" => $propertyController,
+                "method" => "deleteProperty",
+            ],
             "/appartment" => [
                 "controller" => $appartmentController,
                 "method" => "display",
@@ -59,6 +71,11 @@ class Router {
 
         if (!array_key_exists($uri, $routes)) {
             return $routes["default"]["controller"]->{$routes["default"]["method"]}();
+        }
+
+        if (isset($_GET["id"])) {
+            $getParamId = $_GET["id"];
+            return $routes[$uri]["controller"]->{$routes[$uri]["method"]}($getParamId);
         }
 
         return $routes[$uri]["controller"]->{$routes[$uri]["method"]}();

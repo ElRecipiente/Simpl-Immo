@@ -2,7 +2,7 @@
 
 namespace Repositories;
 
-use core\DBConfig;
+use core\db\DBConfig;
 use PDO;
 
 class AppartmentRepository extends DBConfig
