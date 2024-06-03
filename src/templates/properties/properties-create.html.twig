@@ -14,9 +14,9 @@
     <form class="" action="./add-property" method="POST">
 
         <label for="type_property">Type de propriété</label>
-        <select name="type_property" id="type_property">
-            <option value="house">Maison</option>
-            <option value="apartment">Appartement</option>
+        <select name="type_property" id="type_property" required>
+            <option value="maison">Maison</option>
+            <option value="appartement">Appartement</option>
             <option value="garage">Garage</option>
         </select>
 
@@ -31,8 +31,8 @@
 
         <label for="type_transaction">Type de transaction</label>
         <select id="type_transaction" name="type_transaction">
-            <option value="sale">Vente</option>
-            <option value="rent">Location</option>
+            <option value="vente">Vente</option>
+            <option value="location">Location</option>
         </select>
 
         <button>Créer une propriété</button>
