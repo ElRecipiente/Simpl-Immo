@@ -5,11 +5,11 @@
 
 {% block content %}
 
-    <h2>Créer un nouveau bien</h2>
-
     {% if error %}
-        <span class='error'>{{error}}</span>
+        <p class='error'>{{ error }}</p>
     {% endif %}
+
+    <h2>Créer un nouveau bien</h2>
 
     <form class="" action="./add-property" method="POST">
 
