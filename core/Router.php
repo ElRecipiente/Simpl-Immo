@@ -5,6 +5,7 @@ namespace core;
 use Controllers\ErrorController;
 use Controllers\OwnerController;
 use Controllers\PropertyController;
+use Controllers\AppartmentController;
 
 class Router {
 
@@ -19,6 +20,7 @@ class Router {
         $errorController = new ErrorController();
         $propertyController = new PropertyController();
         $ownerController = new OwnerController();
+        $appartmentController = new AppartmentController();
 
         $routes = [
             "default" => [
@@ -36,6 +38,18 @@ class Router {
             "/add-property" => [
                 "controller" => $propertyController,
                 "method" => "addProperty",
+            ],
+            "/appartment" => [
+                "controller" => $appartmentController,
+                "method" => "display",
+            ],
+            "/create-appartment" => [
+                "controller" => $appartmentController,
+                "method" => "createAppartment",
+            ],
+            "/add-appartment" => [
+                "controller" => $appartmentController,
+                "method" => "addAppartment",
             ],
             "/owner" => [
                 "controller" => $ownerController,

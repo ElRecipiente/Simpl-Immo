@@ -2,11 +2,10 @@
 
 namespace Controllers;
 
-use Models\Appartment;
 use Repositories\AppartmentRepository;
 
 /**
- * Define Controller for Appartement
+ * Define Controller for Appartment
  */
 class AppartmentController extends BaseController
 {
@@ -17,26 +16,28 @@ class AppartmentController extends BaseController
     private AppartmentRepository $repository;
 
     /**
-     * @var Appartment
-     */
-    private Appartment $model;
-
-    /**
-     *
+     * Constructor method to initialize the repository
      */
     public function __construct() {
         parent::__construct();
-        $this->model = new Appartment();
         $this->repository = new AppartmentRepository();
     }
 
     /**
+     * Get all appartments and render the view
+     *
      * @return void
-     * Get all properties and render
      */
     public function display() {
         $appartments = $this->repository->getAll();
         $this->render('appartments/appartments.html.twig', ['appartments' => $appartments]);
     }
-
+    public function createAppartment() {
+        $this->render('appartments/appartment-create.html.twig');
+    }
+    public function addAppartment(){
+        $this->repository->create();
+        header('Location: /');
+        exit;
+    }
 }

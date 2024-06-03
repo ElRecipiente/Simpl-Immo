@@ -1,0 +1,31 @@
+{% extends "base.html.twig" %}
+
+{% block title %}Appartements
+{% endblock %}
+
+{% block content %}
+
+    {% if error %}
+        <span class='error'>{{error}}</span>
+    {% endif %}
+
+    <form action="./create_appartment" method="post">
+
+    <label for="room_number">Numéro de chambre :</label><br>
+    <input type="text" id="room_number" name="room_number"><br>
+
+    <label for="bedroom_number">Nombre de salle de bain:</label><br>
+    <input type="text" id="bedroom_number" name="bedroom_number"><br>
+
+    <label for="gardien">Présence d'un jardin :</label><br>
+    <select id="gardien" name="gardien">
+        <option value="1">Oui</option>
+        <option value="0">Non</option>
+    </select><br>
+
+    <input type="submit" value="Créer">
+</form>
+
+    
+
+{% endblock %}

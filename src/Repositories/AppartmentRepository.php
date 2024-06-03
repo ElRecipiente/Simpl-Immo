@@ -30,15 +30,23 @@ class AppartmentRepository extends DBConfig
         return $query->fetch(PDO::FETCH_OBJ);
     }
 
-    public function create(array $data)
-    {
-        $columns = implode(', ', array_keys($data));
-        $placeholders = ':' . implode(', :', array_keys($data));
-        $sql = "INSERT INTO $this->table ($columns) VALUES ($placeholders)";
+    public function create() {
+        $surfaceArea = $_POST["surface_area"];
+        $price = $_POST["price"];
+        $description = $_POST["description"];
+        $typeProperty = $_POST["type_property"];
+        $typeTransaction = $_POST["type_transaction"];
+    
+        $sql = "INSERT INTO " . $this->table . "(surface_area, price, description, type_property, type_transaction) VALUES (:surface_area, :price, :description, :type_property, :type_transaction)";
         $query = $this->_connexion->prepare($sql);
-        $query->execute($data);
-        return $this->_connexion->lastInsertId();
+        $query->bindParam(':surface_area', $surfaceArea);
+        $query->bindParam(':price', $price);
+        $query->bindParam(':description', $description);
+        $query->bindParam(':type_property', $typeProperty);
+        $query->bindParam(':type_transaction', $typeTransaction);
+        $query->execute();
     }
+    
 
     public function update(int $id, array $data)
     {
