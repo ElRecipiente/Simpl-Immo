@@ -27,7 +27,10 @@ class PropertyRepository extends DBConfig
      */
     public function getAll()
     {
-        $sql = "SELECT *
+        $sql = "SELECT $this->table.*,
+        appartments.a_room_number, appartments.a_bedroom_number, appartments.garden,
+        houses.room_number, houses.bedroom_number, houses.garden_size,
+        garages.type, garages.underground
         FROM $this->table
         LEFT JOIN appartments ON $this->table.id = appartments.property_id AND $this->table.type_property = 'Appartement'
         LEFT JOIN houses ON $this->table.id = houses.property_id AND $this->table.type_property = 'Maison'
@@ -43,7 +46,9 @@ class PropertyRepository extends DBConfig
      */
     public function getOneById($id)
     {
-        $sql = "SELECT * FROM " . $this->table . " WHERE id = :id";
+        $sql = "SELECT * FROM $this->table 
+        JOIN appartments ON appartments.property_id = $this->table.id
+        WHERE $this->table.id = :id";
         $query = $this->_connexion->prepare($sql);
         $query->bindParam(':id', $id);
         $query->execute();
@@ -77,7 +82,7 @@ class PropertyRepository extends DBConfig
         $typeProperty = $_POST["type_property"];
         $typeTransaction = $_POST["type_transaction"];
 
-        $sql = "UPDATE " . $this->table . " SET surface_area = :surface_area, price = :price, description = :description, type_property = :type_property, type_transaction = :type_transaction WHERE id = :id";
+        $sql = "UPDATE  $this->table SET surface_area = :surface_area, price = :price, description = :description, type_property = :type_property, type_transaction = :type_transaction WHERE id = :id";
         $query = $this->_connexion->prepare($sql);
         $query->bindParam(':surface_area', $surfaceArea);
         $query->bindParam(':price', $price);

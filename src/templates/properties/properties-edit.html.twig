@@ -9,9 +9,10 @@
         <p class='error'>{{ error }}</p>
     {% endif %}
 
+
     <h2>Modifier un bien</h2>
 
-    <form class="" action="./update-property" method="POST">
+    <form id="property-form" action="" method="POST">
 
         <label for="type_property">Type de propriété</label>
         <select name="type_property" id="type_property" required>
@@ -30,15 +31,107 @@
         <input type="text" name="description" id="description" value="{{ property.description }}" required>
 
         <label for="type_transaction">Type de transaction</label>
-        <select id="type_transaction" name="type_transaction">
+        <select id="type_transaction" name="type_transaction" required>
             <option value="vente" {% if property.type_transaction == 'vente' %}selected{% endif %}>Vente</option>
             <option value="location" {% if property.type_transaction == 'location' %}selected{% endif %}>Location</option>
         </select>
+
+        <div id="appartement_fields" style="display:none;">
+            <label for="a_room_number">Nombre de pièces</label>
+            <input type="number" name="a_room_number" id="a_room_number" value="{{ property.a_room_number }}" required>
+
+            <label for="a_bedroom_number">Nombre de chambres</label>
+            <input type="number" name="a_bedroom_number" id="a_bedroom_number" value="{{ property.a_bedroom_number }}" required>
+
+            <p>Présence d'un jardin ?</p>
+            <input type="radio" name="garden" id="garden_true" value="1" {% if property.garden == 1 %} checked {% endif %}>
+            <label for="garden_true">Oui</label>
+            <input type="radio" name="garden" id="garden_false" value="0" {% if property.garden == 0 %} checked {% endif %}>
+            <label for="garden_false">Non</label>
+        </div>
+
+        <div id="house_fields" style="display:none;">
+            <label for="room_number">Nombre de pièces</label>
+            <input type="number" name="room_number" id="room_number" required>
+
+            <label for="bedroom_number">Nombre de chambres</label>
+            <input type="number" name="bedroom_number" id="bedroom_number" required>
+
+            <label for="garden_size">Taille du terrain</label>
+            <input type="text" name="garden_size" id="garden_size" required>
+        </div>
+
+        <div id="garage_fields" style="display:none;">
+            <label for="type">Type de garage</label>
+            <select name="type" id="type" required>
+                <option value="box">Box</option>
+                <option value="parking_lot">Place de parking</option>
+                <option value="hangar">Hangar</option>
+            </select>
+
+            <p>Garage en sous-sol ?</p>
+            <input type="radio" name="underground" id="underground_true" value="1">
+            <label for="underground_true">Oui</label>
+            <input type="radio" name="underground" id="underground_false" value="0">
+            <label for="underground_false">Non</label>
+        </div>
 
         <input type="hidden" name="id" id="id" value="{{ property.id }}">
 
         <button>Confirmer modification</button>
 
     </form>
+
+    <script>
+      document.addEventListener("DOMContentLoaded", function() {
+        const propertyFields = {
+          "Appartement": {
+            show: "appartement_fields",
+            hide: ["house_fields", "garage_fields"]
+          },
+          "Maison": {
+            show: "house_fields",
+            hide: ["appartement_fields", "garage_fields"]
+          },
+          "Garage": {
+            show: "garage_fields",
+            hide: ["appartement_fields", "house_fields"]
+          }
+        };
+
+        function updateDisplayAndAction() {
+          let typeProperty = document.getElementById("type_property").value;
+          const fields = propertyFields[typeProperty];
+
+          if (fields) {
+            // Show the relevant fieldset and enable its inputs
+            const showElement = document.getElementById(fields.show);
+            showElement.style.display = "block";
+            Array.from(showElement.querySelectorAll("input, select, textarea")).forEach(input => {
+              input.disabled = false;
+            });
+
+            // Hide and disable the inputs of irrelevant fieldsets
+            fields.hide.forEach(field => {
+              const hideElement = document.getElementById(field);
+              hideElement.style.display = "none";
+              Array.from(hideElement.querySelectorAll("input, select, textarea")).forEach(input => {
+                input.disabled = true;
+              });
+            });
+          }
+
+          let form = document.getElementById("property-form");
+          let type = typeProperty.toLowerCase();
+          form.action = "update-property-" + type;
+        }
+
+        // Add event listener to call the function whenever the type_property value changes
+        document.getElementById("type_property").addEventListener("change", updateDisplayAndAction);
+
+        // Initial call to set the correct state based on the default selection
+        updateDisplayAndAction();
+      });
+    </script>
 
 {% endblock %}

@@ -44,34 +44,6 @@ class PropertyController extends BaseController
         $this->render('properties/properties-create.html.twig', $data);
     }
 
-    public function addProperty()
-    {
-        // Check if all fields are set.
-        if (!isset($_POST["surface_area"], $_POST["price"], $_POST["description"], $_POST["type_property"], $_POST["type_transaction"])) {
-            $_SESSION['error'] = "Tous les champs sont obligatoires.";
-            header('Location: /create-property');
-            exit;
-        }
-
-        // Check fields are not empty
-        if (empty(trim($_POST["surface_area"])) || empty(trim($_POST["price"])) || empty(trim($_POST["description"])) || empty(trim($_POST["type_property"])) || empty(trim($_POST["type_transaction"]))) {
-            $_SESSION['error'] = "Les champs ne peuvent pas être vides.";
-            header('Location: /create-property');
-            exit;
-        }
-
-        // Check if surface area and price fields are decimal
-        if (!filter_var($_POST["surface_area"], FILTER_VALIDATE_FLOAT) || !filter_var($_POST["price"], FILTER_VALIDATE_FLOAT)) {
-            $_SESSION['error'] = "Le prix et la surface doivent être des nombres décimaux valides.";
-            header('Location: /create-property');
-            return;
-        }
-
-        $this->repository->create();
-        header('Location: /');
-        exit;
-    }
-
     public function editProperty($id) {
 
         $property = $this->repository->getOneById($id);

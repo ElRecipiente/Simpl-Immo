@@ -32,14 +32,14 @@ class AppartmentRepository extends PropertyRepository
 
             // Get Last insert ID
             $propertyId = $this->_connexion->lastInsertId();
-            $roomNumber = $_POST['room_number'];
-            $bedroomNumber = $_POST['bedroom_number'];
+            $roomNumber = $_POST['a_room_number'];
+            $bedroomNumber = $_POST['a_bedroom_number'];
             $garden = $_POST['garden'];
 
-            $sql = "INSERT INTO $this->table (room_number, bedroom_number, garden, property_id) VALUES (:room_number, :bedroom_number, :garden, :property_id)";
+            $sql = "INSERT INTO $this->table (a_room_number, a_bedroom_number, garden, property_id) VALUES (:a_room_number, :a_bedroom_number, :garden, :property_id)";
             $query = $this->_connexion->prepare($sql);
-            $query->bindParam(":room_number", $roomNumber);
-            $query->bindParam(":bedroom_number", $bedroomNumber);
+            $query->bindParam(":a_room_number", $roomNumber);
+            $query->bindParam(":a_bedroom_number", $bedroomNumber);
             $query->bindParam(":garden", $garden);
             $query->bindParam(":property_id", $propertyId);
             $query->execute();
@@ -58,19 +58,38 @@ class AppartmentRepository extends PropertyRepository
     }
     
 
-    public function updateAppartement(int $id, array $data)
+    public function updateAppartement($id)
     {
-        $setColumns = '';
-        foreach ($data as $key => $value) {
-            $setColumns .= "$key=:$key, ";
+        try {
+
+            // Begin transaction to verify if all request are OK
+            $this->_connexion->beginTransaction();
+
+            // Execute parent update
+            parent::update();
+
+            $roomNumber = $_POST['a_room_number'];
+            $bedroomNumber = $_POST['a_bedroom_number'];
+            $garden = $_POST['garden'];
+
+            $sql = "UPDATE $this->table SET a_room_number = :a_room_number, a_bedroom_number = :a_bedroom_number, garden = :garden WHERE id = :id";
+            $query = $this->_connexion->prepare($sql);
+            $query->bindParam(":a_room_number", $roomNumber);
+            $query->bindParam(":a_bedroom_number", $bedroomNumber);
+            $query->bindParam(":garden", $garden);
+            $query->bindParam(":id", $id);
+            $query->execute();
+
+            // Valid transaction if no error
+            $this->_connexion->commit();
+
         }
-        $setColumns = rtrim($setColumns, ', ');
+        catch (\Exception $e) {
 
-        $sql = "UPDATE $this->table SET $setColumns WHERE id=:id";
-        $data['id'] = $id;
-
-        $query = $this->_connexion->prepare($sql);
-        $query->execute($data);
+            // Cancel transaction if error
+            $this->_connexion->rollback();
+            echo "Error: " . $e->getMessage();
+        }
     }
 
     public function deleteAppartement(int $id)

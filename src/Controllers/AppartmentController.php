@@ -24,5 +24,15 @@ class AppartmentController extends PropertyController {
         }
     }
 
+    public function updatePropertyAppartment() {
+
+        if ($this->middleware->isPropertyCreateSecure() && $this->middleware->isAppartmentCreateSecure()) {
+            $id = $_POST['id'];
+            $this->repository->updateAppartement($id);
+            header('Location: /');
+            exit;
+        }
+    }
+
 
 }

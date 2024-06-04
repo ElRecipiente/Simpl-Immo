@@ -6,14 +6,18 @@
 {% block content %}
 
     <h1>Propriétés</h1>
-    <div class="container">
 
-{#        <pre>{{ dump(properties) }}</pre>#}
+    <a class="add" href="./create-property">Créer une nouvelle propriété</a>
+
+    <div class="container">
 
         {% for property in properties %}
             <card>
                 <ul>
-                    <li><img src="{{ photos.url }}" alt="{{ photos.alt }}"></li>
+                    <li>{% if property.photo %} {{ property.photo }} {% else %}
+                        <img src="https://www.pap.fr/images/visuels/coaching/panneau.png" alt="Pas d'image de la propriété disponible">
+                        {% endif %}
+                    </li>
                     <li>{{ property.type_property }}</li>
                     <li>Bien en {{ property.type_transaction }}</li>
                     <li>{% if property.type_transaction == 'location'%} Loyer : {% else %} Prix de vente : {% endif %}{{ property.price }} € </li>
@@ -43,7 +47,5 @@
         {% endfor %}
 
     </div>
-
-    <a class="add" href="./create-property">Créer une nouvelle propriété</a>
 
 {% endblock %}
