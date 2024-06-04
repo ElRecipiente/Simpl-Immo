@@ -6,4 +6,23 @@ use Repositories\AppartmentRepository;
 
 class AppartmentController extends PropertyController {
 
+    private AppartmentRepository $repository;
+    private Middleware $middleware;
+
+    public function __construct() {
+        parent::__construct();
+        $this->repository = new AppartmentRepository();
+        $this->middleware = new Middleware();
+    }
+
+    public function createPropertyAppartment() {
+
+        if ($this->middleware->isPropertyCreateSecure() && $this->middleware->isAppartmentCreateSecure()) {
+            $this->repository->createAppartement();
+            header('Location: /');
+            exit;
+        }
+    }
+
+
 }

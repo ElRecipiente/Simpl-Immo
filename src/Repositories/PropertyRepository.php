@@ -13,9 +13,6 @@ class PropertyRepository extends DBConfig
      * @var string
      */
     private string $table = "properties";
-    private AppartmentRepository $appartment;
-    private HouseRepository $house;
-    private GarageRepository $garage;
 
     /**
      * Init connexion to db
@@ -23,9 +20,6 @@ class PropertyRepository extends DBConfig
     public function __construct()
     {
         $this->getConnection();
-        $this->appartment = new AppartmentRepository();
-        $this->house = new HouseRepository();
-        $this->garage = new GarageRepository();
     }
 
     /**
@@ -64,7 +58,7 @@ class PropertyRepository extends DBConfig
         $typeProperty = $_POST["type_property"];
         $typeTransaction = $_POST["type_transaction"];
 
-        $sql = "INSERT INTO " . $this->table . "(surface_area, price, description, type_property, type_transaction) VALUES (:surface_area, :price, :description, :type_property, :type_transaction)";
+        $sql = "INSERT INTO $this->table (surface_area, price, description, type_property, type_transaction) VALUES (:surface_area, :price, :description, :type_property, :type_transaction)";
         $query = $this->_connexion->prepare($sql);
         $query->bindParam(':surface_area', $surfaceArea);
         $query->bindParam(':price', $price);

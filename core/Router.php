@@ -3,9 +3,12 @@
 namespace core;
 
 use Controllers\ErrorController;
+use Controllers\GarageController;
+use Controllers\HouseController;
 use Controllers\OwnerController;
 use Controllers\PropertyController;
 use Controllers\AppartmentController;
+
 
 class Router {
 
@@ -21,6 +24,8 @@ class Router {
         $propertyController = new PropertyController();
         $ownerController = new OwnerController();
         $appartmentController = new AppartmentController();
+        $houseController = new HouseController();
+        $garageController = new GarageController();
 
         $routes = [
             "default" => [
@@ -35,9 +40,17 @@ class Router {
                 "controller" => $propertyController,
                 "method" => "createProperty",
             ],
-            "/add-property" => [
-                "controller" => $propertyController,
-                "method" => "addProperty",
+            "/create-property-appartement" => [
+                "controller" => $appartmentController,
+                "method" => "createPropertyAppartment",
+            ],
+            "/create-property-maison" => [
+                "controller" => $houseController,
+                "method" => "createPropertyHouse",
+            ],
+            "/create-property-garage" => [
+                "controller" => $garageController,
+                "method" => "createPropertyGarage",
             ],
             "/edit-property" => [
                 "controller" => $propertyController,
@@ -50,18 +63,6 @@ class Router {
             "/delete-property" => [
                 "controller" => $propertyController,
                 "method" => "deleteProperty",
-            ],
-            "/appartment" => [
-                "controller" => $appartmentController,
-                "method" => "display",
-            ],
-            "/create-appartment" => [
-                "controller" => $appartmentController,
-                "method" => "createAppartment",
-            ],
-            "/add-appartment" => [
-                "controller" => $appartmentController,
-                "method" => "addAppartment",
             ],
             "/owner" => [
                 "controller" => $ownerController,
