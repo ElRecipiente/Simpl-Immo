@@ -8,7 +8,8 @@ abstract class BaseController {
     public function __construct()
     {
         $loader = new \Twig\Loader\FilesystemLoader('../src/templates');
-        $this->twig = new \Twig\Environment($loader);
+        $this->twig = new \Twig\Environment($loader, ['debug' => true]);
+        $this->twig->addExtension(new \Twig\Extension\DebugExtension());
     }
 
     // On parle ici de façade, on fait ce que fait déjà la méthode twig, mais pour le faire avec notre controller
@@ -17,3 +18,4 @@ abstract class BaseController {
         echo $this->twig->render($name, $data);
     }
 }
+

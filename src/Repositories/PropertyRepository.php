@@ -3,7 +3,7 @@
 namespace Repositories;
 
 use core\db\DBConfig;
-use Models\Property;
+
 use PDO;
 
 class PropertyRepository extends DBConfig
@@ -13,8 +13,9 @@ class PropertyRepository extends DBConfig
      * @var string
      */
     private string $table = "properties";
-
-    protected Property $model;
+    private AppartmentRepository $appartment;
+    private HouseRepository $house;
+    private GarageRepository $garage;
 
     /**
      * Init connexion to db
@@ -22,15 +23,21 @@ class PropertyRepository extends DBConfig
     public function __construct()
     {
         $this->getConnection();
-        $this->model = new Property();
+        $this->appartment = new AppartmentRepository();
+        $this->house = new HouseRepository();
+        $this->garage = new GarageRepository();
     }
 
     /**
-     * SELECT ALL in current table
+     * SELECT ALL properties JOIN apartments, houses & garages
      */
     public function getAll()
     {
-        $sql = "SELECT * FROM " . $this->table;
+        $sql = "SELECT *
+        FROM $this->table
+        LEFT JOIN appartments ON $this->table.id = appartments.property_id AND $this->table.type_property = 'Appartement'
+        LEFT JOIN houses ON $this->table.id = houses.property_id AND $this->table.type_property = 'Maison'
+        LEFT JOIN garages ON $this->table.id = garages.property_id AND $this->table.type_property = 'Garage'";
         $query = $this->_connexion->prepare($sql);
         $query->execute();
         return $query->fetchAll(PDO::FETCH_OBJ);
@@ -38,7 +45,7 @@ class PropertyRepository extends DBConfig
 
     /**
      * @param $id
-     * SELECT ONE BY id in current table
+     * SELECT ONE BY properties JOIN apartments, houses & garages
      */
     public function getOneById($id)
     {

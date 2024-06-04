@@ -34,7 +34,14 @@ class PropertyController extends BaseController
 
     public function createProperty()
     {
-        $this->render('properties/properties-create.html.twig');
+        $data = [];
+
+        if (isset($_SESSION['error'])) {
+            $data['error'] = $_SESSION['error'];
+            unset($_SESSION['error']);
+        }
+
+        $this->render('properties/properties-create.html.twig', $data);
     }
 
     public function addProperty()
@@ -48,7 +55,7 @@ class PropertyController extends BaseController
 
         // Check fields are not empty
         if (empty(trim($_POST["surface_area"])) || empty(trim($_POST["price"])) || empty(trim($_POST["description"])) || empty(trim($_POST["type_property"])) || empty(trim($_POST["type_transaction"]))) {
-            $_SESSION['error'] = "Tous les champs sont obligatoires.";
+            $_SESSION['error'] = "Les champs ne peuvent pas être vides.";
             header('Location: /create-property');
             exit;
         }
@@ -91,7 +98,7 @@ class PropertyController extends BaseController
 
         // Check fields are not empty
         if (empty(trim($_POST["surface_area"])) || empty(trim($_POST["price"])) || empty(trim($_POST["description"])) || empty(trim($_POST["type_property"])) || empty(trim($_POST["type_transaction"]))) {
-            $_SESSION['error'] = "Tous les champs sont obligatoires.";
+            $_SESSION['error'] = "Les champs ne peuvent pas être vides.";
             header("Location: /edit-property?id=$id");
             exit;
         }

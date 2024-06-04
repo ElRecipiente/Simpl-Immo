@@ -8,17 +8,38 @@
     <h1>Propriétés</h1>
     <div class="container">
 
-        {% for property in properties %}
-            <ul>
-                <li><img src="{{ photos.url }}" alt="{{ photos.alt }}"></li>
-                <li>{{ property.type_property }}</li>
-                <li>Prix : {{ property.price }} euros</li>
-                <li>Description : {{ property.description }}</li>
-                <li>Bien en {{ property.type_transaction }}</li>
+{#        <pre>{{ dump(properties) }}</pre>#}
 
-            </ul>
-            <a class="modify" href="./edit-property?id={{ property.id }}">Modifier</a>
-            <a class="delete" href="./delete-property?id={{ property.id }}">Supprimer</a>
+        {% for property in properties %}
+            <card>
+                <ul>
+                    <li><img src="{{ photos.url }}" alt="{{ photos.alt }}"></li>
+                    <li>{{ property.type_property }}</li>
+                    <li>Bien en {{ property.type_transaction }}</li>
+                    <li>{% if property.type_transaction == 'location'%} Loyer : {% else %} Prix de vente : {% endif %}{{ property.price }} € </li>
+                    <li>Description : {{ property.description }}</li>
+                    <li>Superficie : {{ property.surface_area }} m²</li>
+
+                    {% if property.type_property == 'Maison' %}
+                        <li>Taille du terrain : {{ property.garden_size }} m²</li>
+                        <li>Nombre de pièces : {{ property.room_number }}</li>
+                        <li>Nombre de chambres : {{ property.bedroom_number }}</li>
+
+                    {% elseif property.type_property == 'Appartement' %}
+                        <li>Nombre de pièces : {{ property.room_number }}</li>
+                        <li>Nombre de chambres : {{ property.bedroom_number }}</li>
+                        <li>Présence d'un jardin : {% if property.garden == 1 %} Oui {% else %} Non {% endif %}</li>
+
+                    {% elseif property.type_property == 'Garage' %}
+                        <li>Type de garage : {{ property.type }}</li>
+                        <li>Sous-sol : {% if property.underground == 1 %} Oui {% else %} Non {% endif %}</li>
+
+                    {% endif %}
+
+                </ul>
+                <a class="modify" href="./edit-property?id={{ property.id }}">Modifier</a>
+                <a class="delete" href="./delete-property?id={{ property.id }}">Supprimer</a>
+            </card>
         {% endfor %}
 
     </div>
