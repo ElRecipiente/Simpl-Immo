@@ -22,6 +22,17 @@ To stop docker:
 docker-compose down
 ```
 
+to remove all docker containers:
+
+- all stopped containers
+- all networks not used by at least one container
+- all images without at least one container associated to them
+- all build cache
+
+```bash
+docker system prune -a
+```
+
 ### Links
 
 - App: `http://localhost:8000/`

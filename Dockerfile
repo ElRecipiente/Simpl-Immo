@@ -22,7 +22,7 @@ COPY composer.json /var/www/html/
 # Définir le dossier public comme DocumentRoot
 RUN sed -i 's|DocumentRoot /var/www/html.*|DocumentRoot /var/www/html/public|g' /etc/apache2/sites-available/000-default.conf
 
-# Activer mod_rewrite pour Apache
+# Activate mod_rewrite for Apache
 RUN a2enmod rewrite
 
 # Copier le fichier .htaccess
