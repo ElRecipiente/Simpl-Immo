@@ -4,113 +4,59 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="">
+    <link rel="stylesheet" href="../../public/css/global.css">
 
     <title>
         {% block title %}Default
         {% endblock %}
     </title>
+    <script src="https://cdn.tailwindcss.com"></script> 
 </head>
 <body>
-<header class="header">
 
+<header>
+    <nav
+      class="main-navigation flex justify-between items-center h-24 bg-white shadow-md"
+    >
+      <div
+        class="nav-logo w-72 h-16 bg-no-repeat bg-center bg-contain m-4"
+      ></div>
+      <ul class="nav-list flex space-x-8 mr-8">
+        <li class="nav-item">
+          <a href="#" class="nav-link font-bold text-black relative">Acheter</a>
+        </li>
+        <li class="nav-item">
+          <a href="#" class="nav-link font-bold text-black relative">Louer</a>
+        </li>
+        <li class="nav-item">
+          <a href="#" class="nav-link font-bold text-black relative"
+            >Mon espace</a
+          >
+        </li>
+      </ul>
+    </nav>
 </header>
-<main class="main">
+
+<main class="main container mx-auto p-4">
     {% block content %}
     {% endblock %}
 </main>
+<footer class="site-footer bg-white text-center py-5">
+    <div class="footer-content container mx-auto px-4">
+      <div class="footer-navigation flex justify-around">
+        <a class="nav-item" href="#">Plan du site</a>
+        <a class="nav-item" href="#">Qui sommes-nous ?</a>
+        <a class="nav-item" href="#">Nous contacter</a>
+        <a class="nav-item" href="#">CGV</a>
+        <a class="nav-item" href="#">Témoignages clients</a>
+        <a class="nav-item" href="#">Recrutement</a>
+        <a class="nav-item" href="#">Espace Presse</a>
+      </div>
+
+      <div class="legal-info text-xs mt-4">
+        Simplimmo © 2024 | Mentions légales | Confidentialité | Cookies | Choix des cookies
+      </div>
+    </div>
+</footer>
 </body>
-
-<style>
-
-    * {
-        margin: 0;
-        padding: 0;
-        box-sizing: border-box;
-        font-family: sans-serif;
-        list-style: none;
-    }
-
-    body {
-        background-color: #202020;
-        color: white;
-    }
-
-    h1, h2, h3 {
-        margin-top: 1em;
-        text-align: center;
-    }
-
-    form {
-        display: flex;
-        flex-flow: column;
-        width: 40%;
-        margin: 2em auto;
-    }
-
-    input, select {
-        font-size: 14px;
-        margin: 1em 0;
-        padding: 0.3em;
-    }
-
-    a {
-        text-decoration: none;
-        display: block;
-        width: fit-content;
-        padding: 0.5em;
-        margin: 1em;
-    }
-
-    a.modify {
-        background-color: blue;
-        color: white;
-    }
-
-    a.delete {
-        background-color: red;
-        color: white;
-    }
-
-    a.add {
-        background-color: green;
-        color: white;
-    }
-
-    .error {
-        background-color: red;
-        color: white;
-        text-align: center;
-        padding: 0.2em;
-        font-weight: bold;
-    }
-
-    button {
-        width: fit-content;
-        margin-top: 1em;
-        padding: 0.5em;
-        border: none;
-        align-self: center;
-    }
-
-    .container {
-        width: 90%;
-        margin: 0 auto;
-        display: flex;
-        flex-flow: row wrap;
-    }
-
-    card {
-        width: 30%;
-        padding: 0.5em;
-        margin: 0.5em;
-        background-color: white;
-        color: black;
-    }
-
-    img {
-        width: 100%;
-    }
-
-</style>
 </html>

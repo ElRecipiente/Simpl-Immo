@@ -1,0 +1,32 @@
+/* General Styles */
+* {
+  box-sizing: border-box;
+}
+
+body {
+  font-size: 14px;
+  font-family: Lato, sans-serif;
+}
+
+/* Nav */
+.nav-link::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: -3px;
+  height: 0.5px;
+  background-color: #000;
+  opacity: 0;
+  transform: scaleX(0);
+  transform-origin: bottom right;
+  transition: transform 0.25s linear, opacity 0.25s linear;
+}
+
+.nav-link:hover::after {
+  opacity: 1;
+  height: 1px;
+  background-color: #000; /* Tailwind's bg-black */
+  transform-origin: bottom left;
+  transform: scaleX(1);
+}
