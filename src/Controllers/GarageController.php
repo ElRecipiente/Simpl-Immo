@@ -2,23 +2,23 @@
 
 namespace Controllers;
 
-use Repositories\HouseRepository;
+use Repositories\GarageRepository;
 
-class HouseController extends PropertyController
-{
-    private HouseRepository $repository;
+class GarageController extends PropertyController {
+
+    private GarageRepository $repository;
     private Middleware $middleware;
 
     public function __construct() {
         parent::__construct();
-        $this->repository = new HouseRepository();
+        $this->repository = new GarageRepository();
         $this->middleware = new Middleware();
     }
 
-    public function createPropertyHouse() {
+    public function createPropertyGarage() {
 
-        if ($this->middleware->isPropertyCreateSecure() && $this->middleware->isHouseCreateSecure()) {
-            $this->repository->createHouse();
+        if ($this->middleware->isPropertyCreateSecure() && $this->middleware->isGarageCreateSecure()) {
+            $this->repository->createGarage();
             header('Location: /');
             exit;
         }
@@ -37,11 +37,11 @@ class HouseController extends PropertyController
         $this->render('properties/properties-edit.html.twig', $data);
     }
 
-    public function updatePropertyHouse() {
+    public function updatePropertyGarage() {
 
-        if ($this->middleware->isPropertyCreateSecure() && $this->middleware->isHouseCreateSecure()) {
+        if ($this->middleware->isPropertyCreateSecure() && $this->middleware->isGarageCreateSecure()) {
             $id = $_POST['id'];
-            $this->repository->updateHouse($id);
+            $this->repository->updateGarage($id);
             header('Location: /');
             exit;
         }

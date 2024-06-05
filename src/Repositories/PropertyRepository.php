@@ -2,10 +2,13 @@
 
 namespace Repositories;
 
-use core\DBConfig;
-use PDO;
+use core\db\DBConfig;
 
-class PropertyRepository extends DBConfig {
+use PDO;
+use PDOException;
+
+class PropertyRepository extends DBConfig
+{
 
     /**
      * @var string
@@ -21,35 +24,89 @@ class PropertyRepository extends DBConfig {
     }
 
     /**
-     * SELECT ALL in current table
+     * SELECT ALL properties JOIN apartments, houses & garages
      */
     public function getAll()
     {
-        $sql = "SELECT * FROM " . $this->table;
+        $sql = "SELECT $this->table.*,
+        appartments.a_room_number, appartments.a_bedroom_number, appartments.garden,
+        houses.room_number, houses.bedroom_number, houses.garden_size,
+        garages.type, garages.underground
+        FROM $this->table
+        LEFT JOIN appartments ON $this->table.id = appartments.property_id AND $this->table.type_property = 'Appartement'
+        LEFT JOIN houses ON $this->table.id = houses.property_id AND $this->table.type_property = 'Maison'
+        LEFT JOIN garages ON $this->table.id = garages.property_id AND $this->table.type_property = 'Garage'";
         $query = $this->_connexion->prepare($sql);
         $query->execute();
         return $query->fetchAll(PDO::FETCH_OBJ);
     }
 
-    /**
-     * @param $id
-     * SELECT ONE BY id in current table
-     */
-    public function getOneById($id)
+    public function create() : void
     {
-        $sql = "SELECT * FROM " . $this->table . " WHERE id = :id";
+        $surfaceArea = trim($_POST["surface_area"]);
+        $price = trim($_POST["price"]);
+        $description = $_POST["description"];
+        $typeProperty = $_POST["type_property"];
+        $typeTransaction = $_POST["type_transaction"];
+
+        $sql = "INSERT INTO $this->table (surface_area, price, description, type_property, type_transaction) VALUES (:surface_area, :price, :description, :type_property, :type_transaction)";
         $query = $this->_connexion->prepare($sql);
-        $query->bindParam(':id', $id);
+        $query->bindParam(':surface_area', $surfaceArea);
+        $query->bindParam(':price', $price);
+        $query->bindParam(':description', $description);
+        $query->bindParam(':type_property', $typeProperty);
+        $query->bindParam(':type_transaction', $typeTransaction);
         $query->execute();
-        return $query->fetch(PDO::FETCH_OBJ);
     }
 
+    public function update() : void
+    {
+        $id = $_POST["id"];
+        $surfaceArea = trim($_POST["surface_area"]);
+        $price = trim($_POST["price"]);
+        $description = $_POST["description"];
+        $typeProperty = $_POST["type_property"];
+        $typeTransaction = $_POST["type_transaction"];
+
+        $sql = "UPDATE  $this->table SET surface_area = :surface_area, price = :price, description = :description, type_property = :type_property, type_transaction = :type_transaction WHERE id = :id";
+        $query = $this->_connexion->prepare($sql);
+        $query->bindParam(':surface_area', $surfaceArea);
+        $query->bindParam(':price', $price);
+        $query->bindParam(':description', $description);
+        $query->bindParam(':type_property', $typeProperty);
+        $query->bindParam(':type_transaction', $typeTransaction);
+        $query->bindParam(':id', $id);
+        $query->execute();
+    }
+
+    public function delete($id) : void {
+
+        try {
+            $this->_connexion->beginTransaction();
+
+            $sql = "DELETE FROM appartments 
+            WHERE property_id = :id";
+
+            $sql = "DELETE FROM " . $this->table . " WHERE id = :id";
+            $query = $this->_connexion->prepare($sql);
+            $query->bindParam(':id', $id);
+            $query->execute();
+
+            $this->_connexion->commit();
+        }
+        catch (PDOException $e) {
+            $this->_connexion->rollback();
+            echo "Error: " . $e->getMessage();
+        }
+
+    }
     /**
      * @param int $surfaceAreaMin
      * @param int $surfaceAreaMax
      * Filter by surface area
      */
-    public function filterBySurfaceArea($surfaceAreaMin, $surfaceAreaMax){
+    public function filterBySurfaceArea($surfaceAreaMin, $surfaceAreaMax)
+    {
         $sql = "SELECT * FROM " . $this->table . " WHERE surface_area > :surfaceAreaMin AND surface_area < :surfaceAreaMax";
         $query = $this->_connexion->prepare($sql);
         $query->bindParam(':surfaceAreaMin', $surfaceAreaMin);
@@ -62,7 +119,8 @@ class PropertyRepository extends DBConfig {
      * @param $price
      * Filter by price
      */
-    public function filterByPrice($priceMin, $priceMax){
+    public function filterByPrice($priceMin, $priceMax)
+    {
         $sql = "SELECT * FROM " . $this->table . " WHERE price > :priceMin AND price < :priceMax";
         $query = $this->_connexion->prepare($sql);
         $query->bindParam(':price', $priceMin);
@@ -70,5 +128,6 @@ class PropertyRepository extends DBConfig {
         $query->execute();
         return $query->fetchAll(PDO::FETCH_OBJ);
     }
+
 
 }

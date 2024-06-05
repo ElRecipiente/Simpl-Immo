@@ -1,0 +1,137 @@
+{% extends "base.html.twig" %}
+
+{% block title %}Modifier le bien
+{% endblock %}
+
+{% block content %}
+
+    {% if error %}
+        <p class='error'>{{ error }}</p>
+    {% endif %}
+
+
+    <h2>Modifier un bien</h2>
+
+    <form id="property-form" action="" method="POST">
+
+        <label for="type_property">Type de propriété</label>
+        <select name="type_property" id="type_property">
+            <option value="Maison" {% if property.type_property == 'Maison' %}selected{% endif %}>Maison</option>
+            <option value="Appartement" {% if property.type_property == 'Appartement' %}selected{% endif %}>Appartement</option>
+            <option value="Garage" {% if property.type_property == 'Garage' %}selected{% endif %}>Garage</option>
+        </select>
+
+        <label for="surface_area">Surface</label>
+        <input type="text" name="surface_area" id="surface_area" value="{{ property.surface_area }}">
+
+        <label for="price">Prix</label>
+        <input type="text" name="price" id="price" value="{{ property.price }}">
+
+        <label for="description">Description</label>
+        <input type="text" name="description" id="description" value="{{ property.description }}">
+
+        <label for="type_transaction">Type de transaction</label>
+        <select id="type_transaction" name="type_transaction">
+            <option value="vente" {% if property.type_transaction == 'vente' %}selected{% endif %}>Vente</option>
+            <option value="location" {% if property.type_transaction == 'location' %}selected{% endif %}>Location</option>
+        </select>
+
+        <div id="appartement_fields" style="display:none;">
+            <label for="a_room_number">Nombre de pièces</label>
+            <input type="number" name="a_room_number" id="a_room_number" value="{{ property.a_room_number }}">
+
+            <label for="a_bedroom_number">Nombre de chambres</label>
+            <input type="number" name="a_bedroom_number" id="a_bedroom_number" value="{{ property.a_bedroom_number }}">
+
+            <p>Présence d'un jardin ?</p>
+            <input type="radio" class="radio" name="garden" id="garden_true" value="1" {% if property.garden == 1 %} checked {% endif %}>
+            <label for="garden_true">Oui</label>
+            <input type="radio" class="radio" name="garden" id="garden_false" value="0" {% if property.garden == 0 %} checked {% endif %}>
+            <label for="garden_false">Non</label>
+        </div>
+
+        <div id="house_fields" style="display:none;">
+            <label for="room_number">Nombre de pièces</label>
+            <input type="number" name="room_number" id="room_number" value="{{ property.room_number }}">
+
+            <label for="bedroom_number">Nombre de chambres</label>
+            <input type="number" name="bedroom_number" id="bedroom_number" value="{{ property.bedroom_number }}">
+
+            <label for="garden_size">Taille du terrain</label>
+            <input type="text" name="garden_size" id="garden_size" value="{{ property.garden_size }}">
+        </div>
+
+        <div id="garage_fields" style="display:none;">
+            <label for="type">Type de garage</label>
+            <select name="type" id="type">
+                <option value="box" {% if property.type == 'box' %}selected{% endif %}>Box</option>
+                <option value="parking_lot" {% if property.type == 'parking_lot' %}selected{% endif %}>Place de parking</option>
+                <option value="hangar" {% if property.type == 'hangar' %}selected{% endif %}>Hangar</option>
+            </select>
+
+            <p>Garage en sous-sol ?</p>
+            <input type="radio" class="radio" name="underground" id="underground_true" value="1" {% if property.underground == 1 %} checked {% endif %}>
+            <label for="underground_true">Oui</label>
+            <input type="radio" class="radio" name="underground" id="underground_false" value="0" {% if property.underground == 0 %} checked {% endif %}>
+            <label for="underground_false">Non</label>
+        </div>
+
+        <input type="hidden" name="id" id="id" value="{{ property.id }}">
+
+        <button>Confirmer modification</button>
+
+    </form>
+
+    <script>
+      document.addEventListener("DOMContentLoaded", function() {
+        const propertyFields = {
+          "Appartement": {
+            show: "appartement_fields",
+            hide: ["house_fields", "garage_fields"]
+          },
+          "Maison": {
+            show: "house_fields",
+            hide: ["appartement_fields", "garage_fields"]
+          },
+          "Garage": {
+            show: "garage_fields",
+            hide: ["appartement_fields", "house_fields"]
+          }
+        };
+
+        function updateDisplayAndAction() {
+          let typeProperty = document.getElementById("type_property").value;
+          const fields = propertyFields[typeProperty];
+
+          if (fields) {
+            // Show the relevant fieldset and enable its inputs
+            const showElement = document.getElementById(fields.show);
+            showElement.style.display = "block";
+            Array.from(showElement.querySelectorAll("input, select, textarea")).forEach(input => {
+              input.disabled = false;
+            });
+
+            // Hide and disable the inputs of irrelevant fieldsets
+            fields.hide.forEach(field => {
+              const hideElement = document.getElementById(field);
+              hideElement.style.display = "none";
+              Array.from(hideElement.querySelectorAll("input, select, textarea")).forEach(input => {
+                input.disabled = true;
+              });
+            });
+          }
+
+          let form = document.getElementById("property-form");
+          let type = typeProperty.toLowerCase();
+          form.action = "update-property-" + type;
+        }
+
+        // Add event listener to call the function whenever the type_property value changes
+        document.getElementById("type_property").addEventListener("change", updateDisplayAndAction);
+
+        // Initial call to set the correct state based on the default selection
+        updateDisplayAndAction();
+      });
+    </script>
+
+{% endblock %}

@@ -1,14 +1,13 @@
 {% extends "base.html.twig" %}
 
-{% block title %}Properties
+{% block title %}Users
 {% endblock %}
 
 {% block content %}
 
-    <h1>Propriétés</h1>
-
-    <a class="add" href="./create-property">Créer une nouvelle propriété</a>
-
+    <h1>Users</h1>
+     <p>Hello, {{ user.username }}!</p>
+     <h2>Your Properties</h2>
     <div class="container">
 
         {% for property in properties %}
@@ -41,11 +40,12 @@
                     {% endif %}
 
                 </ul>
-                <a class="modify" href="./edit-property-{{ property.type_property }}?id={{ property.id }}">Modifier</a>
+                <a class="modify" href="./edit-property?id={{ property.id }}">Modifier</a>
                 <a class="delete" href="./delete-property?id={{ property.id }}">Supprimer</a>
             </card>
         {% endfor %}
 
     </div>
-
+     <a href="/">Logout</a>
+    
 {% endblock %}

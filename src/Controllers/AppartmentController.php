@@ -2,23 +2,23 @@
 
 namespace Controllers;
 
-use Repositories\HouseRepository;
+use Repositories\AppartmentRepository;
 
-class HouseController extends PropertyController
-{
-    private HouseRepository $repository;
+class AppartmentController extends PropertyController {
+
+    private AppartmentRepository $repository;
     private Middleware $middleware;
 
     public function __construct() {
         parent::__construct();
-        $this->repository = new HouseRepository();
+        $this->repository = new AppartmentRepository();
         $this->middleware = new Middleware();
     }
 
-    public function createPropertyHouse() {
+    public function createPropertyAppartment() {
 
-        if ($this->middleware->isPropertyCreateSecure() && $this->middleware->isHouseCreateSecure()) {
-            $this->repository->createHouse();
+        if ($this->middleware->isPropertyCreateSecure() && $this->middleware->isAppartmentCreateSecure()) {
+            $this->repository->createAppartement();
             header('Location: /');
             exit;
         }
@@ -37,13 +37,15 @@ class HouseController extends PropertyController
         $this->render('properties/properties-edit.html.twig', $data);
     }
 
-    public function updatePropertyHouse() {
+    public function updatePropertyAppartment() {
 
-        if ($this->middleware->isPropertyCreateSecure() && $this->middleware->isHouseCreateSecure()) {
+        if ($this->middleware->isPropertyCreateSecure() && $this->middleware->isAppartmentCreateSecure()) {
             $id = $_POST['id'];
-            $this->repository->updateHouse($id);
+            $this->repository->updateAppartement($id);
             header('Location: /');
             exit;
         }
     }
+
+
 }

@@ -2,12 +2,13 @@
 
 namespace Models;
 
-use core\DBConfig;
+use core\db\DBConfig;
 
 /**
  * Define Property class
  */
-class Property extends DBConfig {
+class Property extends DBConfig
+{
 
     /**
      * @var float
@@ -33,51 +34,60 @@ class Property extends DBConfig {
     /**
      * @return float
      */
-public function getSurfaceArea() {
-    return $this->surface_area;
-}
+    public function getSurfaceArea()
+    {
+        return $this->surface_area;
+    }
+    public function setSurfaceArea(float $surface_area)
+    {
+        $this->surface_area = $surface_area;
+    }
 
     /**
      * @return float
      */
-public function getPrice() {
-    return $this->price;
-}
+    public function getPrice()
+    {
+        return $this->price;
+    }
+    public function setPrice(float $price)
+    {
+        $this->price = $price;
+    }
 
     /**
      * @return string
      */
-public function getDescription() {
-    return $this->description;
-}
-
-    /**
-     * @param $description
-     * @return void
-     */
-public function setDescription($description) {
-    $this->description = $description;
-}
+    public function getDescription()
+    {
+        return $this->description;
+    }
+    public function setDescription(string $description)
+    {
+        $this->description = $description;
+    }
 
     /**
      * @return string
      */
-public function getTypeTransaction() {
-    return $this->type_transaction;
-}
+    public function getTypeTransaction()
+    {
+        return $this->type_transaction;
+    }
+    public function setTypeTransaction(string $type_transaction)
+    {
+        $this->type_transaction = $type_transaction;
+    }
 
     /**
      * @return string
      */
-public function getTypeProperty() {
-    return $this->type_property;
-}
-
-    /**
-     * @return void
-     */
-public function create() {
-    // todo in child class
-}
-
+    public function getTypeProperty()
+    {
+        return $this->type_property;
+    }
+    public function setTypeProperty(string $type_property)
+    {
+        $this->type_property = $type_property;
+    }
 }

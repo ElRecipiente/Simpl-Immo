@@ -1,23 +1,212 @@
 <!DOCTYPE html>
 <html lang="en">
-    <head>
-        <meta charset="UTF-8">
-        <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <link rel="stylesheet" href="style.css">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../../public/css/global.css">
 
-        <title>
-            {% block title %}Default
-            {% endblock %}
-        </title>
-    </head>
-    <body>
-        <header class="header">
+    <title>
+        {% block title %}Default
+        {% endblock %}
+    </title>
+    <script src="https://cdn.tailwindcss.com"></script> 
+</head>
+<body>
 
-        </header>
-        <main class="main">
-            {% block content %}
-            {% endblock %}
-            </main>
-        </body>
-    </html>
+<header>
+    <nav
+      class="main-navigation flex justify-between items-center h-24 bg-white shadow-md"
+    >
+      <div
+        class="nav-logo w-72 h-16 bg-no-repeat bg-center bg-contain m-4"
+      ></div>
+      <ul class="nav-list flex space-x-8 mr-8">
+        <li class="nav-item">
+          <a href="#" class="nav-link font-bold text-black relative">Acheter</a>
+        </li>
+        <li class="nav-item">
+          <a href="#" class="nav-link font-bold text-black relative">Louer</a>
+        </li>
+        <li class="nav-item">
+          <a href="#" class="nav-link font-bold text-black relative"
+            >Mon espace</a
+          >
+        </li>
+      </ul>
+    </nav>
+</header>
+
+<main class="main container mx-auto p-4">
+    {% block content %}
+    {% endblock %}
+</main>
+<footer class="site-footer bg-white text-center py-5 shadow-[0_-4px_6px_1px_rgba(0,0,0,0.1)]">
+    <div class="footer-content container mx-auto px-4">
+      <div class="footer-navigation flex justify-around">
+        <a class="nav-item" href="#">Plan du site</a>
+        <a class="nav-item" href="#">Qui sommes-nous ?</a>
+        <a class="nav-item" href="#">Nous contacter</a>
+        <a class="nav-item" href="#">CGV</a>
+        <a class="nav-item" href="#">Témoignages clients</a>
+        <a class="nav-item" href="#">Recrutement</a>
+        <a class="nav-item" href="#">Espace Presse</a>
+      </div>
+
+      <div class="legal-info text-xs mt-4">
+        Simplimmo © 2024 | Mentions légales | Confidentialité | Cookies | Choix des cookies
+      </div>
+    </div>
+</footer>
+</body>
+<style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: sans-serif;
+      list-style: none;
+    }
+
+    body {
+      font-family: Lato, sans-serif;
+    }
+
+    h1, h2, h3 {
+        margin-top: 1em;
+        text-align: center;
+        font-weight: bold;
+    }
+
+    h1 {
+        width: 100%;
+        font-size: 30px;
+    }
+
+    h2 {
+        font-size: 20px;
+    }
+
+    form {
+        display: flex;
+        flex-flow: column;
+        width: 40%;
+        margin: 2em auto;
+    }
+
+    form > div {
+        display: flex;
+        flex-flow: row wrap;
+        width: 100%;
+        margin: 2em auto;
+    }
+
+    form > div > input:not(.radio) {
+        width: 100%;
+        flex-grow: 1;
+    }
+
+    input, select {
+        border: 1px solid black;
+        font-size: 14px;
+        margin: 1em 0;
+        padding: 0.3em;
+    }
+
+    a {
+        text-decoration: none;
+        display: block;
+        width: fit-content;
+        padding: 0.5em;
+        margin: 1em;
+    }
+
+    a.modify {
+        background-color: cornflowerblue;
+        color: white;
+    }
+
+    a.delete {
+        background-color: indianred;
+        color: white;
+    }
+
+    a.add {
+        background-color: darkseagreen;
+        color: white;
+    }
+
+    .error {
+        background-color: red;
+        color: white;
+        text-align: center;
+        padding: 0.2em;
+        font-weight: bold;
+        width: 100%;
+    }
+
+    button {
+        width: fit-content;
+        margin-top: 1em;
+        padding: 0.5em;
+        align-self: center;
+        background-color: #202020;
+        color: white;
+        transition: background-color 0.4s ease-out;
+    }
+
+    button:hover {
+        background-color: #606060;
+    }
+
+    .container {
+        width: 90%;
+        margin: 0 auto;
+        display: flex;
+        flex-flow: row wrap;
+    }
+
+    card {
+        width: 30%;
+        padding: 1em;
+        margin: 0.5em;
+        background-color: white;
+        color: black;
+        border-radius: 20px;
+        box-shadow: 0 3px 6px #a9a9a9;
+        transition: box-shadow 0.4s ease-out;
+        cursor: pointer;
+    }
+
+    card:hover {
+        box-shadow: 0 3px 6px #808080;
+    }
+
+    img {
+        width: 100%;
+    }
+
+    /* Nav */
+    .nav-link::after {
+      content: "";
+      position: absolute;
+      left: 0;
+      right: 0;
+      bottom: -3px;
+      height: 0.5px;
+      background-color: #000;
+      opacity: 0;
+      transform: scaleX(0);
+      transform-origin: bottom right;
+      transition: transform 0.25s linear, opacity 0.25s linear;
+    }
+
+    .nav-link:hover::after {
+      opacity: 1;
+      height: 1px;
+      background-color: #000; /* Tailwind's bg-black */
+      transform-origin: bottom left;
+      transform: scaleX(1);
+    }
+</style>
+</html>
