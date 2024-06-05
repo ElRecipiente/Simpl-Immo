@@ -1,0 +1,18 @@
+{% extends "base.html.twig" %}
+
+{% block title %}Users
+{% endblock %}
+
+{% block content %}
+
+    <h1>Users</h1>
+     <p>Hello, {{ user.username }}!</p>
+     <h2>Your Properties</h2>
+    <ul>
+        {% for property in properties %}
+            <li>{{ property.price }} - {{ property.description }}</li>
+        {% endfor %}
+    </ul>
+     <a href="/">Logout</a>
+    
+{% endblock %}

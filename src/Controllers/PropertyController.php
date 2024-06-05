@@ -60,4 +60,8 @@ class PropertyController extends BaseController
         header('Location: /');
         exit;
     }
+
+    public function getAllProperties() {
+        return $this->repository->getAll();
+    }
 }

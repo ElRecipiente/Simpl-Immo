@@ -1,0 +1,22 @@
+{# templates/users/user-connexion.html.twig #}
+{% extends "base.html.twig" %}
+
+{% block title %}Connexion{% endblock %}
+
+{% block content %}
+
+    {% if error %}
+        <span class='error'>{{ error }}</span>
+    {% endif %}
+
+    <form action="/login-submit" method="post">
+        <label for="mail">Email :</label><br>
+        <input type="email" id="mail" name="mail" required><br>
+
+        <label for="password">Mot de passe :</label><br>
+        <input type="password" id="password" name="password" required><br>
+
+        <input type="submit" value="Connexion">
+    </form>
+
+{% endblock %}

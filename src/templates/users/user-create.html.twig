@@ -1,0 +1,40 @@
+{% extends "base.html.twig" %}
+
+{% block title %}Créer un utilisateur{% endblock %}
+
+{% block content %}
+
+    {% if error %}
+        <span class='error'>{{ error }}</span>
+    {% endif %}
+
+    <form action="./add-user" method="post">
+
+        <label for="username">Nom d'utilisateur :</label><br>
+        <input type="text" id="username" name="username" required><br>
+
+        <label for="password">Mot de passe :</label><br>
+        <input type="password" id="password" name="password" required><br>
+
+        <label for="firstname">Prénom :</label><br>
+        <input type="text" id="firstname" name="firstname" required><br>
+
+        <label for="lastname">Nom :</label><br>
+        <input type="text" id="lastname" name="lastname" required><br>
+
+        <label for="mail">Email :</label><br>
+        <input type="email" id="mail" name="mail" required><br>
+
+        <label for="phone_number">Numéro de téléphone :</label><br>
+        <input type="text" id="phone_number" name="phone_number" required><br>
+
+        <label for="is_admin">Admin :</label><br>
+        <select id="is_admin" name="is_admin" required>
+            <option value="1">Oui</option>
+            <option value="0">Non</option>
+        </select><br>
+
+        <input type="submit" value="Créer">
+    </form>
+
+{% endblock %}
