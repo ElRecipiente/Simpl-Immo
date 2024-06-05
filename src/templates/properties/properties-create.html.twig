@@ -14,33 +14,33 @@
     <form id="property-form" action="" method="POST">
 
         <label for="type_property">Type de propriété</label>
-        <select name="type_property" id="type_property" required>
+        <select name="type_property" id="type_property">
             <option value="Maison">Maison</option>
             <option value="Appartement">Appartement</option>
             <option value="Garage">Garage</option>
         </select>
 
         <label for="surface_area">Surface</label>
-        <input type="text" name="surface_area" id="surface_area" required>
+        <input type="text" name="surface_area" id="surface_area">
 
         <label for="price">Prix</label>
-        <input type="text" name="price" id="price" required>
+        <input type="text" name="price" id="price">
 
         <label for="description">Description</label>
-        <input type="text" name="description" id="description" required>
+        <input type="text" name="description" id="description">
 
         <label for="type_transaction">Type de transaction</label>
-        <select id="type_transaction" name="type_transaction" required>
+        <select id="type_transaction" name="type_transaction">
             <option value="vente">Vente</option>
             <option value="location">Location</option>
         </select>
 
         <div id="appartement_fields" style="display:none;">
             <label for="a_room_number">Nombre de pièces</label>
-            <input type="number" name="a_room_number" id="a_room_number" required>
+            <input type="number" name="a_room_number" id="a_room_number">
 
             <label for="a_bedroom_number">Nombre de chambres</label>
-            <input type="number" name="a_bedroom_number" id="a_bedroom_number" required>
+            <input type="number" name="a_bedroom_number" id="a_bedroom_number">
 
             <p>Présence d'un jardin ?</p>
             <input type="radio" name="garden" id="garden_true" value="1">
@@ -51,18 +51,18 @@
 
         <div id="house_fields" style="display:none;">
             <label for="room_number">Nombre de pièces</label>
-            <input type="number" name="room_number" id="room_number" required>
+            <input type="number" name="room_number" id="room_number">
 
             <label for="bedroom_number">Nombre de chambres</label>
-            <input type="number" name="bedroom_number" id="bedroom_number" required>
+            <input type="number" name="bedroom_number" id="bedroom_number">
 
             <label for="garden_size">Taille du terrain</label>
-            <input type="text" name="garden_size" id="garden_size" required>
+            <input type="text" name="garden_size" id="garden_size">
         </div>
 
         <div id="garage_fields" style="display:none;">
             <label for="type">Type de garage</label>
-            <select name="type" id="type" required>
+            <select name="type" id="type">
                 <option value="box">Box</option>
                 <option value="parking_lot">Place de parking</option>
                 <option value="hangar">Hangar</option>

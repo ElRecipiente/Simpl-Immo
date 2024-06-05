@@ -5,6 +5,7 @@ namespace Repositories;
 use core\db\DBConfig;
 
 use PDO;
+use PDOException;
 
 class PropertyRepository extends DBConfig
 {
@@ -94,10 +95,25 @@ class PropertyRepository extends DBConfig
     }
 
     public function delete($id) : void {
-        $sql = "DELETE FROM " . $this->table . " WHERE id = :id";
-        $query = $this->_connexion->prepare($sql);
-        $query->bindParam(':id', $id);
-        $query->execute();
+
+        try {
+            $this->_connexion->beginTransaction();
+
+            $sql = "DELETE FROM appartments 
+            WHERE property_id = :id";
+
+            $sql = "DELETE FROM " . $this->table . " WHERE id = :id";
+            $query = $this->_connexion->prepare($sql);
+            $query->bindParam(':id', $id);
+            $query->execute();
+
+            $this->_connexion->commit();
+        }
+        catch (PDOException $e) {
+            $this->_connexion->rollback();
+            echo "Error: " . $e->getMessage();
+        }
+
     }
     /**
      * @param int $surfaceAreaMin
