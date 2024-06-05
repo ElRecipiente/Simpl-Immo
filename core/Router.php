@@ -53,8 +53,16 @@ class Router {
                 "controller" => $garageController,
                 "method" => "createPropertyGarage",
             ],
-            "/edit-property" => [
-                "controller" => $propertyController,
+            "/edit-property-Appartement" => [
+                "controller" => $appartmentController,
+                "method" => "editProperty",
+            ],
+            "/edit-property-Maison" => [
+                "controller" => $houseController,
+                "method" => "editProperty",
+            ],
+            "/edit-property-Garage" => [
+                "controller" => $garageController,
                 "method" => "editProperty",
             ],
             "/update-property-appartement" => [

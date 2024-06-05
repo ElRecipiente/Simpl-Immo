@@ -52,27 +52,27 @@
 
         <div id="house_fields" style="display:none;">
             <label for="room_number">Nombre de pièces</label>
-            <input type="number" name="room_number" id="room_number">
+            <input type="number" name="room_number" id="room_number" value="{{ property.room_number }}">
 
             <label for="bedroom_number">Nombre de chambres</label>
-            <input type="number" name="bedroom_number" id="bedroom_number">
+            <input type="number" name="bedroom_number" id="bedroom_number" value="{{ property.bedroom_number }}">
 
             <label for="garden_size">Taille du terrain</label>
-            <input type="text" name="garden_size" id="garden_size">
+            <input type="text" name="garden_size" id="garden_size" value="{{ property.garden_size }}">
         </div>
 
         <div id="garage_fields" style="display:none;">
             <label for="type">Type de garage</label>
             <select name="type" id="type">
-                <option value="box">Box</option>
-                <option value="parking_lot">Place de parking</option>
-                <option value="hangar">Hangar</option>
+                <option value="box" {% if property.type == 'box' %}selected{% endif %}>Box</option>
+                <option value="parking_lot" {% if property.type == 'parking_lot' %}selected{% endif %}>Place de parking</option>
+                <option value="hangar" {% if property.type == 'hangar' %}selected{% endif %}>Hangar</option>
             </select>
 
             <p>Garage en sous-sol ?</p>
-            <input type="radio" class="radio" name="underground" id="underground_true" value="1">
+            <input type="radio" class="radio" name="underground" id="underground_true" value="1" {% if property.underground == 1 %} checked {% endif %}>
             <label for="underground_true">Oui</label>
-            <input type="radio" class="radio" name="underground" id="underground_false" value="0">
+            <input type="radio" class="radio" name="underground" id="underground_false" value="0" {% if property.underground == 0 %} checked {% endif %}>
             <label for="underground_false">Non</label>
         </div>
 

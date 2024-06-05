@@ -41,7 +41,7 @@
                     {% endif %}
 
                 </ul>
-                <a class="modify" href="./edit-property?id={{ property.id }}">Modifier</a>
+                <a class="modify" href="./edit-property-{{ property.type_property }}?id={{ property.id }}">Modifier</a>
                 <a class="delete" href="./delete-property?id={{ property.id }}">Supprimer</a>
             </card>
         {% endfor %}

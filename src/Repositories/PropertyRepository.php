@@ -41,21 +41,6 @@ class PropertyRepository extends DBConfig
         return $query->fetchAll(PDO::FETCH_OBJ);
     }
 
-    /**
-     * @param $id
-     * SELECT ONE BY properties JOIN apartments, houses & garages
-     */
-    public function getOneById($id)
-    {
-        $sql = "SELECT * FROM $this->table 
-        JOIN appartments ON appartments.property_id = $this->table.id
-        WHERE $this->table.id = :id";
-        $query = $this->_connexion->prepare($sql);
-        $query->bindParam(':id', $id);
-        $query->execute();
-        return $query->fetch(PDO::FETCH_OBJ);
-    }
-
     public function create() : void
     {
         $surfaceArea = trim($_POST["surface_area"]);

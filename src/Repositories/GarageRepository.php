@@ -2,6 +2,8 @@
 
 namespace Repositories;
 
+use PDO;
+
 class GarageRepository extends PropertyRepository {
 
 
@@ -16,6 +18,21 @@ class GarageRepository extends PropertyRepository {
     public function __construct()
     {
         parent::__construct();
+    }
+
+    /**
+     * @param $id
+     * SELECT ONE BY properties JOIN apartments, houses & garages
+     */
+    public function getOneById($id)
+    {
+        $sql = "SELECT * FROM $this->table 
+        JOIN properties ON properties.id = $this->table.property_id
+        WHERE $this->table.property_id = :id";
+        $query = $this->_connexion->prepare($sql);
+        $query->bindParam(':id', $id);
+        $query->execute();
+        return $query->fetch(PDO::FETCH_OBJ);
     }
 
     /**

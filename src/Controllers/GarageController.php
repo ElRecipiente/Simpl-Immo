@@ -24,6 +24,19 @@ class GarageController extends PropertyController {
         }
     }
 
+    public function editProperty($id) {
+
+        $property = $this->repository->getOneById($id);
+        $data = ['property' => $property];
+
+        if (isset($_SESSION['error'])) {
+            $data['error'] = $_SESSION['error'];
+            unset($_SESSION['error']);
+        }
+
+        $this->render('properties/properties-edit.html.twig', $data);
+    }
+
     public function updatePropertyGarage() {
 
         if ($this->middleware->isPropertyCreateSecure() && $this->middleware->isGarageCreateSecure()) {
