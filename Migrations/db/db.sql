@@ -69,8 +69,8 @@ CREATE TABLE houses (
 );
 CREATE TABLE appartments (
     id INT PRIMARY KEY AUTO_INCREMENT,
-    room_number INT NOT NULL,
-    bedroom_number INT NOT NULL,
+    a_room_number INT NOT NULL,
+    a_bedroom_number INT NOT NULL,
     garden BOOLEAN NOT NULL,
     property_id INT,
     FOREIGN KEY (property_id) REFERENCES properties(id)

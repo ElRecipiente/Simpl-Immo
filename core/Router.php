@@ -3,9 +3,12 @@
 namespace core;
 
 use Controllers\ErrorController;
+use Controllers\GarageController;
+use Controllers\HouseController;
 use Controllers\OwnerController;
 use Controllers\PropertyController;
 use Controllers\AppartmentController;
+
 use Controllers\UserController;
 
 class Router {
@@ -21,6 +24,8 @@ class Router {
         $propertyController = new PropertyController();
         $ownerController = new OwnerController();
         $appartmentController = new AppartmentController();
+        $houseController = new HouseController();
+        $garageController = new GarageController();
         $userController = new UserController();
 
         $routes = [
@@ -36,17 +41,33 @@ class Router {
                 "controller" => $propertyController,
                 "method" => "createProperty",
             ],
-            "/add-property" => [
-                "controller" => $propertyController,
-                "method" => "addProperty",
+            "/create-property-appartement" => [
+                "controller" => $appartmentController,
+                "method" => "createPropertyAppartment",
+            ],
+            "/create-property-maison" => [
+                "controller" => $houseController,
+                "method" => "createPropertyHouse",
+            ],
+            "/create-property-garage" => [
+                "controller" => $garageController,
+                "method" => "createPropertyGarage",
             ],
             "/edit-property" => [
                 "controller" => $propertyController,
                 "method" => "editProperty",
             ],
-            "/update-property" => [
-                "controller" => $propertyController,
-                "method" => "updateProperty",
+            "/update-property-appartement" => [
+                "controller" => $appartmentController,
+                "method" => "updatePropertyAppartment",
+            ],
+            "/update-property-maison" => [
+                "controller" => $houseController,
+                "method" => "updatePropertyHouse",
+            ],
+            "/update-property-garage" => [
+                "controller" => $garageController,
+                "method" => "updatePropertyGarage",
             ],
             "/delete-property" => [
                 "controller" => $propertyController,
@@ -80,18 +101,6 @@ class Router {
             "/delete-user" => [
                 "controller" => $userController,
                 "method" => "deleteUser",
-            ],
-            "/appartment" => [
-                "controller" => $appartmentController,
-                "method" => "display",
-            ],
-            "/create-appartment" => [
-                "controller" => $appartmentController,
-                "method" => "createAppartment",
-            ],
-            "/add-appartment" => [
-                "controller" => $appartmentController,
-                "method" => "addAppartment",
             ],
             "/owner" => [
                 "controller" => $ownerController,

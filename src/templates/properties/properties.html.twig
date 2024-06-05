@@ -5,24 +5,47 @@
 
 {% block content %}
 
-    <h1>Properties</h1>
+    <h1>Propriétés</h1>
+
+    <a class="add" href="./create-property">Créer une nouvelle propriété</a>
+
     <div class="container">
 
         {% for property in properties %}
-            <ul>
-                <li><img src="{{ photos.url }}" alt="{{ photos.alt }}"></li>
-                <li>{{ property.type_property }}</li>
-                <li>Prix : {{ property.price }} euros</li>
-                <li>Description : {{ property.description }}</li>
-                <li>Bien en {{ property.type_transaction }}</li>
+            <card>
+                <ul>
+                    <li>{% if property.photo %} {{ property.photo }} {% else %}
+                        <img src="https://www.pap.fr/images/visuels/coaching/panneau.png" alt="Pas d'image de la propriété disponible">
+                        {% endif %}
+                    </li>
+                    <li>{{ property.type_property }}</li>
+                    <li>Bien en {{ property.type_transaction }}</li>
+                    <li>{% if property.type_transaction == 'location'%} Loyer : {% else %} Prix de vente : {% endif %}{{ property.price }} € </li>
+                    <li>Description : {{ property.description }}</li>
+                    <li>Superficie : {{ property.surface_area }} m²</li>
 
-            </ul>
-            <a class="modify" href="./edit-property?id={{ property.id }}">Modifier</a>
-            <a class="delete" href="./delete-property?id={{ property.id }}">Supprimer</a>
+                    {% if property.type_property == 'Maison' %}
+                        <li>Taille du terrain : {{ property.garden_size }} m²</li>
+                        <li>Nombre de pièces : {{ property.room_number }}</li>
+                        <li>Nombre de chambres : {{ property.bedroom_number }}</li>
+
+                    {% elseif property.type_property == 'Appartement' %}
+                        <li>Nombre de pièces : {{ property.a_room_number }}</li>
+                        <li>Nombre de chambres : {{ property.a_bedroom_number }}</li>
+                        <li>Présence d'un jardin : {% if property.garden == 1 %} Oui {% else %} Non {% endif %}</li>
+
+                    {% elseif property.type_property == 'Garage' %}
+                        <li>Type de garage : {{ property.type }}</li>
+                        <li>Sous-sol : {% if property.underground == 1 %} Oui {% else %} Non {% endif %}</li>
+
+                    {% endif %}
+
+                </ul>
+                <a class="modify" href="./edit-property?id={{ property.id }}">Modifier</a>
+                <a class="delete" href="./delete-property?id={{ property.id }}">Supprimer</a>
+            </card>
         {% endfor %}
 
     </div>
-
-    <a class="add" href="./create-property">Créer une nouvelle propriété</a>
 
 {% endblock %}

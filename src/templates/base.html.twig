@@ -22,21 +22,36 @@
 </body>
 
 <style>
+
     * {
         margin: 0;
         padding: 0;
         box-sizing: border-box;
         font-family: sans-serif;
+        list-style: none;
+    }
+
+    body {
+        background-color: #202020;
+        color: white;
+    }
+
+    h1, h2, h3 {
+        margin-top: 1em;
+        text-align: center;
     }
 
     form {
         display: flex;
         flex-flow: column;
-        width: fit-content;
+        width: 40%;
+        margin: 2em auto;
     }
 
-    input {
-        margin-bottom: 1em;
+    input, select {
+        font-size: 14px;
+        margin: 1em 0;
+        padding: 0.3em;
     }
 
     a {
@@ -60,6 +75,41 @@
     a.add {
         background-color: green;
         color: white;
+    }
+
+    .error {
+        background-color: red;
+        color: white;
+        text-align: center;
+        padding: 0.2em;
+        font-weight: bold;
+    }
+
+    button {
+        width: fit-content;
+        margin-top: 1em;
+        padding: 0.5em;
+        border: none;
+        align-self: center;
+    }
+
+    .container {
+        width: 90%;
+        margin: 0 auto;
+        display: flex;
+        flex-flow: row wrap;
+    }
+
+    card {
+        width: 30%;
+        padding: 0.5em;
+        margin: 0.5em;
+        background-color: white;
+        color: black;
+    }
+
+    img {
+        width: 100%;
     }
 
 </style>

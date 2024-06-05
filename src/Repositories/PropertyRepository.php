@@ -3,8 +3,9 @@
 namespace Repositories;
 
 use core\db\DBConfig;
-use Models\Property;
+
 use PDO;
+use PDOException;
 
 class PropertyRepository extends DBConfig
 {
@@ -14,23 +15,27 @@ class PropertyRepository extends DBConfig
      */
     private string $table = "properties";
 
-    protected Property $model;
-
     /**
      * Init connexion to db
      */
     public function __construct()
     {
         $this->getConnection();
-        $this->model = new Property();
     }
 
     /**
-     * SELECT ALL in current table
+     * SELECT ALL properties JOIN apartments, houses & garages
      */
     public function getAll()
     {
-        $sql = "SELECT * FROM " . $this->table;
+        $sql = "SELECT $this->table.*,
+        appartments.a_room_number, appartments.a_bedroom_number, appartments.garden,
+        houses.room_number, houses.bedroom_number, houses.garden_size,
+        garages.type, garages.underground
+        FROM $this->table
+        LEFT JOIN appartments ON $this->table.id = appartments.property_id AND $this->table.type_property = 'Appartement'
+        LEFT JOIN houses ON $this->table.id = houses.property_id AND $this->table.type_property = 'Maison'
+        LEFT JOIN garages ON $this->table.id = garages.property_id AND $this->table.type_property = 'Garage'";
         $query = $this->_connexion->prepare($sql);
         $query->execute();
         return $query->fetchAll(PDO::FETCH_OBJ);
@@ -38,11 +43,13 @@ class PropertyRepository extends DBConfig
 
     /**
      * @param $id
-     * SELECT ONE BY id in current table
+     * SELECT ONE BY properties JOIN apartments, houses & garages
      */
     public function getOneById($id)
     {
-        $sql = "SELECT * FROM " . $this->table . " WHERE id = :id";
+        $sql = "SELECT * FROM $this->table 
+        JOIN appartments ON appartments.property_id = $this->table.id
+        WHERE $this->table.id = :id";
         $query = $this->_connexion->prepare($sql);
         $query->bindParam(':id', $id);
         $query->execute();
@@ -51,13 +58,13 @@ class PropertyRepository extends DBConfig
 
     public function create() : void
     {
-        $surfaceArea = $_POST["surface_area"];
-        $price = $_POST["price"];
+        $surfaceArea = trim($_POST["surface_area"]);
+        $price = trim($_POST["price"]);
         $description = $_POST["description"];
         $typeProperty = $_POST["type_property"];
         $typeTransaction = $_POST["type_transaction"];
 
-        $sql = "INSERT INTO " . $this->table . "(surface_area, price, description, type_property, type_transaction) VALUES (:surface_area, :price, :description, :type_property, :type_transaction)";
+        $sql = "INSERT INTO $this->table (surface_area, price, description, type_property, type_transaction) VALUES (:surface_area, :price, :description, :type_property, :type_transaction)";
         $query = $this->_connexion->prepare($sql);
         $query->bindParam(':surface_area', $surfaceArea);
         $query->bindParam(':price', $price);
@@ -70,13 +77,13 @@ class PropertyRepository extends DBConfig
     public function update() : void
     {
         $id = $_POST["id"];
-        $surfaceArea = $_POST["surface_area"];
-        $price = $_POST["price"];
+        $surfaceArea = trim($_POST["surface_area"]);
+        $price = trim($_POST["price"]);
         $description = $_POST["description"];
         $typeProperty = $_POST["type_property"];
         $typeTransaction = $_POST["type_transaction"];
 
-        $sql = "UPDATE " . $this->table . " SET surface_area = :surface_area, price = :price, description = :description, type_property = :type_property, type_transaction = :type_transaction WHERE id = :id";
+        $sql = "UPDATE  $this->table SET surface_area = :surface_area, price = :price, description = :description, type_property = :type_property, type_transaction = :type_transaction WHERE id = :id";
         $query = $this->_connexion->prepare($sql);
         $query->bindParam(':surface_area', $surfaceArea);
         $query->bindParam(':price', $price);
@@ -88,10 +95,25 @@ class PropertyRepository extends DBConfig
     }
 
     public function delete($id) : void {
-        $sql = "DELETE FROM " . $this->table . " WHERE id = :id";
-        $query = $this->_connexion->prepare($sql);
-        $query->bindParam(':id', $id);
-        $query->execute();
+
+        try {
+            $this->_connexion->beginTransaction();
+
+            $sql = "DELETE FROM appartments 
+            WHERE property_id = :id";
+
+            $sql = "DELETE FROM " . $this->table . " WHERE id = :id";
+            $query = $this->_connexion->prepare($sql);
+            $query->bindParam(':id', $id);
+            $query->execute();
+
+            $this->_connexion->commit();
+        }
+        catch (PDOException $e) {
+            $this->_connexion->rollback();
+            echo "Error: " . $e->getMessage();
+        }
+
     }
     /**
      * @param int $surfaceAreaMin

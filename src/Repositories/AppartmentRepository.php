@@ -2,68 +2,97 @@
 
 namespace Repositories;
 
-use core\db\DBConfig;
-use PDO;
-
-class AppartmentRepository extends DBConfig
+class AppartmentRepository extends PropertyRepository
 {
+    /**
+     * @var string
+     */
     private string $table = "appartments";
 
+    /**
+     * Init connexion by constructing parent
+     */
     public function __construct()
     {
-        $this->getConnection();
+        parent::__construct();
     }
 
-    public function getAll()
-    {
-        $sql = "SELECT * FROM $this->table";
-        $query = $this->_connexion->prepare($sql);
-        $query->execute();
-        return $query->fetchAll(PDO::FETCH_OBJ);
-    }
+    /**
+     * @return void
+     */
+    public function createAppartement() {
 
-    public function getAppartementById(int $id)
-    {
-        $sql = "SELECT * FROM $this->table WHERE id = :id";
-        $query = $this->_connexion->prepare($sql);
-        $query->execute(["id" => $id]);
-        return $query->fetch(PDO::FETCH_OBJ);
-    }
+        try {
 
-    public function create() {
-        $surfaceArea = $_POST["surface_area"];
-        $price = $_POST["price"];
-        $description = $_POST["description"];
-        $typeProperty = $_POST["type_property"];
-        $typeTransaction = $_POST["type_transaction"];
-    
-        $sql = "INSERT INTO " . $this->table . "(surface_area, price, description, type_property, type_transaction) VALUES (:surface_area, :price, :description, :type_property, :type_transaction)";
-        $query = $this->_connexion->prepare($sql);
-        $query->bindParam(':surface_area', $surfaceArea);
-        $query->bindParam(':price', $price);
-        $query->bindParam(':description', $description);
-        $query->bindParam(':type_property', $typeProperty);
-        $query->bindParam(':type_transaction', $typeTransaction);
-        $query->execute();
-    }
-    
+            // Begin transaction to verify if all request are OK
+            $this->_connexion->beginTransaction();
 
-    public function update(int $id, array $data)
-    {
-        $setColumns = '';
-        foreach ($data as $key => $value) {
-            $setColumns .= "$key=:$key, ";
+            // Execute parent create
+            parent::create();
+
+            // Get Last insert ID
+            $propertyId = $this->_connexion->lastInsertId();
+            $roomNumber = $_POST['a_room_number'];
+            $bedroomNumber = $_POST['a_bedroom_number'];
+            $garden = $_POST['garden'];
+
+            $sql = "INSERT INTO $this->table (a_room_number, a_bedroom_number, garden, property_id) VALUES (:a_room_number, :a_bedroom_number, :garden, :property_id)";
+            $query = $this->_connexion->prepare($sql);
+            $query->bindParam(":a_room_number", $roomNumber);
+            $query->bindParam(":a_bedroom_number", $bedroomNumber);
+            $query->bindParam(":garden", $garden);
+            $query->bindParam(":property_id", $propertyId);
+            $query->execute();
+
+            // Valid transaction if no error
+            $this->_connexion->commit();
+
         }
-        $setColumns = rtrim($setColumns, ', ');
+        catch (\Exception $e) {
 
-        $sql = "UPDATE $this->table SET $setColumns WHERE id=:id";
-        $data['id'] = $id;
+            // Cancel transaction if error
+            $this->_connexion->rollback();
+            echo "Error: " . $e->getMessage();
+        }
 
-        $query = $this->_connexion->prepare($sql);
-        $query->execute($data);
+    }
+    
+
+    public function updateAppartement($id)
+    {
+        try {
+
+            // Begin transaction to verify if all request are OK
+            $this->_connexion->beginTransaction();
+
+            // Execute parent update
+            parent::update();
+
+            $roomNumber = $_POST['a_room_number'];
+            $bedroomNumber = $_POST['a_bedroom_number'];
+            $garden = $_POST['garden'];
+
+            $sql = "UPDATE $this->table SET a_room_number = :a_room_number, a_bedroom_number = :a_bedroom_number, garden = :garden WHERE id = :id";
+            $query = $this->_connexion->prepare($sql);
+            $query->bindParam(":a_room_number", $roomNumber);
+            $query->bindParam(":a_bedroom_number", $bedroomNumber);
+            $query->bindParam(":garden", $garden);
+            $query->bindParam(":id", $id);
+            $query->execute();
+
+            // Valid transaction if no error
+            $this->_connexion->commit();
+
+        }
+        catch (\Exception $e) {
+
+            // Cancel transaction if error
+            $this->_connexion->rollback();
+            echo "Error: " . $e->getMessage();
+        }
     }
 
-    public function delete(int $id)
+    public function deleteAppartement(int $id)
     {
         $sql = "DELETE FROM $this->table WHERE id=:id";
         $query = $this->_connexion->prepare($sql);

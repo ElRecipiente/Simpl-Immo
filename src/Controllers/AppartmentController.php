@@ -4,40 +4,35 @@ namespace Controllers;
 
 use Repositories\AppartmentRepository;
 
-/**
- * Define Controller for Appartment
- */
-class AppartmentController extends BaseController
-{
+class AppartmentController extends PropertyController {
 
-    /**
-     * @var AppartmentRepository
-     */
     private AppartmentRepository $repository;
+    private Middleware $middleware;
 
-    /**
-     * Constructor method to initialize the repository
-     */
     public function __construct() {
         parent::__construct();
         $this->repository = new AppartmentRepository();
+        $this->middleware = new Middleware();
     }
 
-    /**
-     * Get all appartments and render the view
-     *
-     * @return void
-     */
-    public function display() {
-        $appartments = $this->repository->getAll();
-        $this->render('appartments/appartments.html.twig', ['appartments' => $appartments]);
+    public function createPropertyAppartment() {
+
+        if ($this->middleware->isPropertyCreateSecure() && $this->middleware->isAppartmentCreateSecure()) {
+            $this->repository->createAppartement();
+            header('Location: /');
+            exit;
+        }
     }
-    public function createAppartment() {
-        $this->render('appartments/appartment-create.html.twig');
+
+    public function updatePropertyAppartment() {
+
+        if ($this->middleware->isPropertyCreateSecure() && $this->middleware->isAppartmentCreateSecure()) {
+            $id = $_POST['id'];
+            $this->repository->updateAppartement($id);
+            header('Location: /');
+            exit;
+        }
     }
-    public function addAppartment(){
-        $this->repository->create();
-        header('Location: /');
-        exit;
-    }
+
+
 }
