@@ -34,19 +34,19 @@ class Middleware {
     public function isAppartmentCreateSecure() {
 
         // Check if all fields are set
-        if (!isset($_POST["a_room_number"], $_POST["a_bedroom_number"], $_POST["garden"])) {
+        if (!isset($_POST["a_type"], $_POST["a_underground"], $_POST["garden"])) {
             $_SESSION['error'] = "Tous les champs sont obligatoires(BIS).";
             header('Location: ' . $_SERVER['HTTP_REFERER']);
             exit;
         }
 
-        if (empty(trim($_POST["a_room_number"])) || empty(trim($_POST["a_bedroom_number"])) || empty(trim($_POST["garden"]))) {
+        if (empty(trim($_POST["a_type"])) || empty(trim($_POST["a_underground"])) || empty(trim($_POST["garden"]))) {
             $_SESSION['error'] = "Les champs ne peuvent pas être vides(BIS).";
             header('Location: ' . $_SERVER['HTTP_REFERER']);
             exit;
         }
 
-        if (!filter_var($_POST["a_room_number"], FILTER_VALIDATE_INT) || !filter_var($_POST["a_bedroom_number"], FILTER_VALIDATE_INT)) {
+        if (!filter_var($_POST["a_type"], FILTER_VALIDATE_INT) || !filter_var($_POST["a_underground"], FILTER_VALIDATE_INT)) {
             $_SESSION['error'] = "Le nombre de pièces et de chambres doit être un nombre valide.";
             header('Location: ' . $_SERVER['HTTP_REFERER']);
             exit;
@@ -59,20 +59,39 @@ class Middleware {
     public function isHouseCreateSecure() {
 
         // Check if all fields are set
-        if (!isset($_POST["room_number"], $_POST["bedroom_number"], $_POST["garden_size"])) {
+        if (!isset($_POST["type"], $_POST["underground"], $_POST["garden_size"])) {
             $_SESSION['error'] = "Tous les champs sont obligatoires(BIS).";
             header('Location: ' . $_SERVER['HTTP_REFERER']);
             exit;
         }
 
-        if (empty(trim($_POST["room_number"])) || empty(trim($_POST["bedroom_number"])) || empty(trim($_POST["garden_size"]))) {
+        if (empty(trim($_POST["type"])) || empty(trim($_POST["underground"])) || empty(trim($_POST["garden_size"]))) {
             $_SESSION['error'] = "Les champs ne peuvent pas être vides(BIS).";
             header('Location: ' . $_SERVER['HTTP_REFERER']);
             exit;
         }
 
-        if (!filter_var($_POST["room_number"], FILTER_VALIDATE_INT) || !filter_var($_POST["bedroom_number"], FILTER_VALIDATE_INT)) {
+        if (!filter_var($_POST["type"], FILTER_VALIDATE_INT) || !filter_var($_POST["underground"], FILTER_VALIDATE_INT)) {
             $_SESSION['error'] = "Le nombre de pièces et de chambres doit être un nombre valide.";
+            header('Location: ' . $_SERVER['HTTP_REFERER']);
+            exit;
+        }
+
+        return true;
+
+    }
+
+    public function isGarageCreateSecure() {
+
+        // Check if all fields are set
+        if (!isset($_POST["type"], $_POST["underground"])) {
+            $_SESSION['error'] = "Tous les champs sont obligatoires(BIS).";
+            header('Location: ' . $_SERVER['HTTP_REFERER']);
+            exit;
+        }
+
+        if (empty(trim($_POST["type"])) || empty(trim($_POST["underground"]))) {
+            $_SESSION['error'] = "Les champs ne peuvent pas être vides(BIS).";
             header('Location: ' . $_SERVER['HTTP_REFERER']);
             exit;
         }
